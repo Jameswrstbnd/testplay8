@@ -1,7 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: 'kotlin-android'
 
-import com.android.build.OutputFile
 
 project.ext.react = [
         bundleInDebug           : false,
@@ -52,6 +51,12 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+
+/**
+ * Condition for including google services for firebase
+ */
+def googleServicesEnabled = hasGoogleServicesSupport()
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -70,6 +75,7 @@ android {
         testBuildType System.getProperty("testBuildType", "debug")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
+        buildConfigField "boolean", "USE_FIREBASE", "${googleServicesEnabled}"
     }
     splits {
         abi {
@@ -98,9 +104,11 @@ android {
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
+        tasks.create(name: "bundle${variant.name.capitalize()}JsAndAssets") {}
+
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
-            // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
+            // https://developer.android.com/studio/build/configure-apk-splits.html
             def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
@@ -111,6 +119,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    dataBinding {
+        enabled false
     }
     packagingOptions {
         pickFirst '**/libjsc.so'
@@ -154,6 +165,11 @@ dependencies {
     implementation project(":mendixnative-release")
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.webkit:android-jsc:r245459"
+    implementation project(':react-native-permissions')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+    devImplementation "androidx.constraintlayout:constraintlayout:2.1.1"
+    devImplementation "me.dm7.barcodescanner:zxing:1.9.13"
 
     // Explicit add okhttp
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
@@ -168,6 +184,10 @@ dependencies {
     // Required for Custom Dev Apps
     devImplementation "androidx.constraintlayout:constraintlayout:2.0.4"
     devImplementation "me.dm7.barcodescanner:zxing:1.9.13"
+    // Required for Custom Dev Apps
+    devImplementation 'com.fasterxml.jackson.core:jackson-core:2.11.3'
+    devImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.3'
+    devImplementation 'com.fasterxml.jackson.core:jackson-databind:2.11.3'
 
     androidTestImplementation("com.wix:detox:+")
 }
@@ -190,3 +210,15 @@ applyMendixGradle(project)
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle");
 applyNativeModulesAppBuildGradle(project)
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+// Disable till dependencies are ironed out
+try {
+    com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
+} catch (e) {
+}
+
+boolean hasGoogleServicesSupport() {
+    def enabled = file("$projectDir/google-services.json").exists()
+    println "Google Services support is ${enabled ? "enabled" : "disabled"}"
+    return enabled
+}

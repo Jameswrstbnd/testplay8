@@ -1,5 +1,11 @@
 module.exports = {
     dependencies: {
+        'react-native-firebase': {
+            platforms: {
+                // disable only on ios as we handle linking
+                ios: null,
+            },
+        },
         'react-native-code-push': {
             platforms: {
                 // disable only on Android as we require some conditional setup
@@ -16,9 +22,9 @@ module.exports = {
         },
         'react-native-video': {
             platforms: {
-              android: {
-                sourceDir: '../node_modules/react-native-video/android-exoplayer',
-              },
+                android: {
+                    sourceDir: '../node_modules/react-native-video/android-exoplayer',
+                },
             },
         },
     },

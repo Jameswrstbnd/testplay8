@@ -1,0 +1,307 @@
+diff --git a/node_modules/react-native-firebase/android/build.gradle b/node_modules/react-native-firebase/android/build.gradle
+index 3e74895..e38df36 100644
+--- a/node_modules/react-native-firebase/android/build.gradle
++++ b/node_modules/react-native-firebase/android/build.gradle
+@@ -183,10 +183,6 @@ dependencies {
+   compileOnly "com.google.firebase:firebase-firestore:19.0.2"
+   // Cloud Messaging / FCM
+   compileOnly "com.google.firebase:firebase-messaging:18.0.0"
+-  // Crashlytics
+-  compileOnly('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+-    transitive = true
+-  }
+   /* --------------------------------
+    *  OPTIONAL SUPPORT LIBS
+    * -------------------------------- */
+diff --git a/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/RNFirebaseModule.java b/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/RNFirebaseModule.java
+index 24f472e..085f926 100644
+--- a/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/RNFirebaseModule.java
++++ b/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/RNFirebaseModule.java
+@@ -155,24 +155,33 @@ public class RNFirebaseModule extends ReactContextBaseJavaModule {
+   public Map<String, Object> getConstants() {
+     Map<String, Object> constants = new HashMap<>();
+     List<Map<String, Object>> appMapsList = new ArrayList<>();
+-    List<FirebaseApp> firebaseAppList = FirebaseApp.getApps(getReactApplicationContext());
+-
+-    // TODO no way to get client id currently from app options - firebase sdk issue
+-    for (FirebaseApp app : firebaseAppList) {
+-      String appName = app.getName();
+-      FirebaseOptions appOptions = app.getOptions();
+-      Map<String, Object> appProps = new HashMap<>();
+-
+-      appProps.put("name", appName);
+-      appProps.put("apiKey", appOptions.getApiKey());
+-      appProps.put("appId", appOptions.getApplicationId());
+-      appProps.put("projectId", appOptions.getProjectId());
+-      appProps.put("projectId", appOptions.getProjectId());
+-      appProps.put("databaseURL", appOptions.getDatabaseUrl());
+-      appProps.put("messagingSenderId", appOptions.getGcmSenderId());
+-      appProps.put("storageBucket", appOptions.getStorageBucket());
+-
+-      appMapsList.add(appProps);
++
++    try {
++      List<FirebaseApp> firebaseAppList = FirebaseApp.getApps(getReactApplicationContext());
++
++      // TODO no way to get client id currently from app options - firebase sdk issue
++      for (FirebaseApp app : firebaseAppList) {
++        String appName = app.getName();
++        FirebaseOptions appOptions = app.getOptions();
++        Map<String, Object> appProps = new HashMap<>();
++
++        appProps.put("name", appName);
++        appProps.put("apiKey", appOptions.getApiKey());
++        appProps.put("appId", appOptions.getApplicationId());
++        appProps.put("projectId", appOptions.getProjectId());
++        appProps.put("projectId", appOptions.getProjectId());
++        appProps.put("databaseURL", appOptions.getDatabaseUrl());
++        appProps.put("messagingSenderId", appOptions.getGcmSenderId());
++        appProps.put("storageBucket", appOptions.getStorageBucket());
++
++        appMapsList.add(appProps);
++      }
++    } catch (Exception e) {
++      Log.e("RNFirebaseModule", "Firebase app not found. Did you enable the Firebase capability?");
++      Log.e("RNFirebaseModule", e.getLocalizedMessage());
++    } catch (NoClassDefFoundError e) {
++      Log.e("RNFirebaseModule", "Firebase app not found. Did you enable the Firebase capability?");
++      Log.e("RNFirebaseModule", e.getLocalizedMessage());
+     }
+ 
+     constants.put("apps", appMapsList);
+diff --git a/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/fabric/crashlytics/RNFirebaseCrashlytics.java b/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/fabric/crashlytics/RNFirebaseCrashlytics.java
+deleted file mode 100644
+index 7e2ae4c..0000000
+--- a/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/fabric/crashlytics/RNFirebaseCrashlytics.java
++++ /dev/null
+@@ -1,120 +0,0 @@
+-package io.invertase.firebase.fabric.crashlytics;
+-
+-import android.util.Log;
+-
+-import com.crashlytics.android.Crashlytics;
+-import com.facebook.react.bridge.ReactApplicationContext;
+-import com.facebook.react.bridge.ReactContextBaseJavaModule;
+-import com.facebook.react.bridge.ReactMethod;
+-import com.facebook.react.bridge.ReadableArray;
+-import com.facebook.react.bridge.ReadableMap;
+-
+-import java.util.ArrayList;
+-
+-import io.fabric.sdk.android.Fabric;
+-
+-public class RNFirebaseCrashlytics extends ReactContextBaseJavaModule {
+-
+-  private static final String TAG = "RNFirebaseCrashlytics";
+-
+-  public RNFirebaseCrashlytics(ReactApplicationContext reactContext) {
+-    super(reactContext);
+-    Log.d(TAG, "New instance");
+-  }
+-
+-  @Override
+-  public String getName() {
+-    return TAG;
+-  }
+-
+-  @ReactMethod
+-  public void crash() {
+-    Crashlytics
+-      .getInstance()
+-      .crash();
+-  }
+-
+-  @ReactMethod
+-  public void log(final String message) {
+-    Crashlytics.log(message);
+-  }
+-
+-  @ReactMethod
+-  public void recordError(final int code, final String domain) {
+-    Crashlytics.logException(new Exception(code + ": " + domain));
+-  }
+-
+-  @ReactMethod
+-  public void recordCustomError(String name, String reason, ReadableArray frameArray) {
+-      ArrayList<StackTraceElement> stackList = new ArrayList<>(0);
+-      for (int i = 0; i < frameArray.size(); i++) {
+-        ReadableMap map = frameArray.getMap(i);
+-        ReadableMap additional = map.hasKey("additional") ? map.getMap("additional") : null;
+-        String functionName = map.hasKey("functionName") ? map.getString("functionName") : "Unknown Function";
+-        String className = map.hasKey("className") ? map.getString("className") : "Unknown Class";
+-        StackTraceElement stack = new StackTraceElement(
+-          className,
+-          functionName,
+-          map.getString("fileName"),
+-          map.hasKey("lineNumber") ? map.getInt("lineNumber") : -1
+-        );
+-        stackList.add(stack);
+-
+-        if(additional != null){
+-          StackTraceElement s = new StackTraceElement(
+-            "Additional Parameters",
+-            additional.toString(),
+-            map.getString("fileName"),
+-            map.hasKey("lineNumber") ? map.getInt("lineNumber") : -1
+-          );
+-          stackList.add(s);
+-        }
+-      }
+-      StackTraceElement[] stackTrace =  new StackTraceElement[stackList.size()];
+-      Exception e = new Exception(name + "\n" + reason);
+-      stackTrace = stackList.toArray(stackTrace);
+-      e.setStackTrace(stackTrace);
+-      Crashlytics.logException(e);
+-  }
+-
+-  @ReactMethod
+-  public void setBoolValue(final String key, final boolean boolValue) {
+-    Crashlytics.setBool(key, boolValue);
+-  }
+-
+-  @ReactMethod
+-  public void setFloatValue(final String key, final float floatValue) {
+-    Crashlytics.setFloat(key, floatValue);
+-  }
+-
+-  @ReactMethod
+-  public void setIntValue(final String key, final int intValue) {
+-    Crashlytics.setInt(key, intValue);
+-  }
+-
+-  @ReactMethod
+-  public void setStringValue(final String key, final String stringValue) {
+-    Crashlytics.setString(key, stringValue);
+-  }
+-
+-  @ReactMethod
+-  public void setUserIdentifier(String userId) {
+-    Crashlytics.setUserIdentifier(userId);
+-  }
+-
+-  @ReactMethod
+-  public void setUserName(String userName) {
+-    Crashlytics.setUserName(userName);
+-  }
+-
+-  @ReactMethod
+-  public void setUserEmail(String userEmail) {
+-    Crashlytics.setUserEmail(userEmail);
+-  }
+-
+-  @ReactMethod
+-  public void enableCrashlyticsCollection() {
+-    Fabric.with(getReactApplicationContext(), new Crashlytics());
+-  }
+-
+-}
+diff --git a/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/fabric/crashlytics/RNFirebaseCrashlyticsPackage.java b/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/fabric/crashlytics/RNFirebaseCrashlyticsPackage.java
+deleted file mode 100644
+index 44f31e3..0000000
+--- a/node_modules/react-native-firebase/android/src/main/java/io/invertase/firebase/fabric/crashlytics/RNFirebaseCrashlyticsPackage.java
++++ /dev/null
+@@ -1,38 +0,0 @@
+-package io.invertase.firebase.fabric.crashlytics;
+-
+-import com.facebook.react.ReactPackage;
+-import com.facebook.react.bridge.NativeModule;
+-import com.facebook.react.bridge.ReactApplicationContext;
+-import com.facebook.react.uimanager.UIManagerModule;
+-import com.facebook.react.uimanager.ViewManager;
+-
+-import java.util.ArrayList;
+-import java.util.Collections;
+-import java.util.List;
+-
+-@SuppressWarnings("unused")
+-public class RNFirebaseCrashlyticsPackage implements ReactPackage {
+-  public RNFirebaseCrashlyticsPackage() {
+-  }
+-
+-  /**
+-   * @param reactContext react application context that can be used to create modules
+-   * @return list of native modules to register with the newly created catalyst instance
+-   */
+-  @Override
+-  public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+-    List<NativeModule> modules = new ArrayList<>();
+-    modules.add(new RNFirebaseCrashlytics(reactContext));
+-
+-    return modules;
+-  }
+-
+-  /**
+-   * @param reactContext
+-   * @return a list of view managers that should be registered with {@link UIManagerModule}
+-   */
+-  @Override
+-  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+-    return Collections.emptyList();
+-  }
+-}
+diff --git a/node_modules/react-native-firebase/ios/RNFirebase.podspec b/node_modules/react-native-firebase/ios/RNFirebase.podspec
+index 00bafb5..9378698 100644
+--- a/node_modules/react-native-firebase/ios/RNFirebase.podspec
++++ b/node_modules/react-native-firebase/ios/RNFirebase.podspec
+@@ -17,10 +17,6 @@ Pod::Spec.new do |s|
+   s.source_files        = 'RNFirebase/**/*.{h,m}'
+   s.dependency          'React'
+   s.dependency          'Firebase/Core'
+-  s.subspec 'Crashlytics' do |cs|
+-    cs.dependency 'Fabric'
+-    cs.dependency 'Crashlytics'
+-  end
+   # allow this package to be used with use_frameworks!
+   s.static_framework = true
+ end
+diff --git a/node_modules/react-native-firebase/ios/RNFirebase/messaging/RNFirebaseMessaging.m b/node_modules/react-native-firebase/ios/RNFirebase/messaging/RNFirebaseMessaging.m
+index 90fdb1d..92ac092 100644
+--- a/node_modules/react-native-firebase/ios/RNFirebase/messaging/RNFirebaseMessaging.m
++++ b/node_modules/react-native-firebase/ios/RNFirebase/messaging/RNFirebaseMessaging.m
+@@ -187,8 +187,10 @@ RCT_EXPORT_METHOD(requestPermission:(RCTPromiseResolveBlock)resolve rejecter:(RC
+ }
+ 
+ RCT_EXPORT_METHOD(registerForRemoteNotifications:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+-    [RCTSharedApplication() registerForRemoteNotifications];
+-    resolve(nil);
++    dispatch_async(dispatch_get_main_queue(), ^{
++        [RCTSharedApplication() registerForRemoteNotifications];
++        resolve(nil);
++    });
+ }
+ 
+ // Non Web SDK methods
+diff --git a/node_modules/react-native-firebase/ios/RNFirebase/notifications/RNFirebaseNotifications.m b/node_modules/react-native-firebase/ios/RNFirebase/notifications/RNFirebaseNotifications.m
+index d3aa1e3..b35e7c2 100644
+--- a/node_modules/react-native-firebase/ios/RNFirebase/notifications/RNFirebaseNotifications.m
++++ b/node_modules/react-native-firebase/ios/RNFirebase/notifications/RNFirebaseNotifications.m
+@@ -102,17 +102,19 @@ RCT_EXPORT_MODULE();
+ 
+ RCT_EXPORT_METHOD(complete:(NSString*)handlerKey fetchResult:(UIBackgroundFetchResult)fetchResult) {
+     if (handlerKey != nil) {
+-        void (^fetchCompletionHandler)(UIBackgroundFetchResult) = fetchCompletionHandlers[handlerKey];
+-        if (fetchCompletionHandler != nil) {
+-            fetchCompletionHandlers[handlerKey] = nil;
+-            fetchCompletionHandler(fetchResult);
+-        } else {
+-            void(^completionHandler)(void) = completionHandlers[handlerKey];
+-            if (completionHandler != nil) {
+-                completionHandlers[handlerKey] = nil;
+-                completionHandler();
++        dispatch_async(dispatch_get_main_queue(), ^{
++            void (^fetchCompletionHandler)(UIBackgroundFetchResult) = fetchCompletionHandlers[handlerKey];
++            if (fetchCompletionHandler != nil) {
++                fetchCompletionHandlers[handlerKey] = nil;
++                fetchCompletionHandler(fetchResult);
++            } else {
++                void(^completionHandler)(void) = completionHandlers[handlerKey];
++                if (completionHandler != nil) {
++                    completionHandlers[handlerKey] = nil;
++                    completionHandler();
++                }
+             }
+-        }
++        });
+     }
+ }
+ 

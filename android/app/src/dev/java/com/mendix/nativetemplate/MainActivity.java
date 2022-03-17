@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         startCameraWithPermissions();
 
         handleLaunchWithData(getIntent());
+        if (getIntent().getData() != null && getIntent().getAction() != null) {
+            this.launchApp(appPreferences.getAppUrl(), getIntent());
+        }
     }
 
     @Override
@@ -211,9 +214,16 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             MendixApp mendixApp = new MendixApp(runtimeUrl, warningsFilter, devModeEnabled, true);
             intent.putExtra(MendixReactActivity.MENDIX_APP_INTENT_KEY, mendixApp);
             intent.putExtra(MendixReactActivity.CLEAR_DATA, clearData);
+
+
             if (passedIntent != null) {
-                intent.setData(passedIntent.getData());
-                intent.setAction(passedIntent.getAction());
+                if (passedIntent.getData() != null) {
+                    intent.setData(passedIntent.getData());
+                }
+
+                if (passedIntent.getAction() != null) {
+                    intent.setAction(passedIntent.getAction());
+                }
             }
 
             startActivity(intent);
