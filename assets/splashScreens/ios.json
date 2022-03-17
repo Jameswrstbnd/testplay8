@@ -1,6 +1,5 @@
 {
-    "images": [
-        {
+    "images": [{
             "size": "640x960",
             "idiom": "universal",
             "scale": "1x",

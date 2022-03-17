@@ -1,6 +1,5 @@
 {
-    "images": [
-        {
+    "images": [{
             "filename": "ic_launcher.png",
             "directory": "mipmap-mdpi",
             "title": "mipmap-mdpi-ic_launcher.png"

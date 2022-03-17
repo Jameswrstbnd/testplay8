@@ -1,6 +1,5 @@
 {
-    "images": [
-        {
+    "images": [{
             "filename": "splash.png",
             "directory": "drawable-hdpi",
             "title": "drawable-hdpi-splash.png"
