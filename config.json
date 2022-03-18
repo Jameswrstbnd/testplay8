@@ -131,7 +131,7 @@
             "enabled": false
         }
     },
-    "appVersion": "0.1.50",
-    "buildNumber": 50,
+    "appVersion": "0.1.51",
+    "buildNumber": 51,
     "runtimeUrl": "https://wrstbndchrislocal.ngrok.io"
 }
