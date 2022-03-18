@@ -14,6 +14,8 @@ import org.devio.rn.splashscreen.SplashScreen;
 
 import java.util.List;
 
+import com.github.kevinejohn.keyevent.KeyEventPackage;
+
 public class MainApplication extends MendixReactApplication {
     @Override
     public boolean getUseDeveloperSupport() {

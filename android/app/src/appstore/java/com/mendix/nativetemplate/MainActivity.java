@@ -17,4 +17,15 @@ public class MainActivity extends MendixReactActivity {
         mendixApp = new MendixApp(AppUrl.getUrlFromResource(this), MxConfiguration.WarningsFilter.none, hasDeveloperSupport, false);
         super.onCreate(savedInstanceState);
     }
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == 0) {
+            KeyEventModule.getInstance().onKeyDownEvent(event.getKeyCode(), event);
+        }
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
+    }
 }
