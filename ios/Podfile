@@ -68,6 +68,8 @@ target 'nativeTemplate' do
   use_native_modules!
   common_pods
   # Intentionally left empty
+  pod 'react-native-keyevent', :path => '../node_modules/react-native-keyevent'
+
 end
 
 target 'dev' do

@@ -160,6 +160,7 @@ dependencies {
         implementation jscFlavor
     }
 
+    implementation project(':react-native-keyevent')
     implementation project(':react-native-splash-screen')
     implementation project(':react-native-code-push')
     implementation project(":mendixnative-release")
