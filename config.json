@@ -130,5 +130,8 @@
         "nativeOTA": {
             "enabled": false
         }
-    }
+    },
+    "appVersion": "0.1.46",
+    "buildNumber": 46,
+    "runtimeUrl": "https://wrstbndchrislocal.ngrok.io"
 }
