@@ -88,40 +88,19 @@
             "name": "NSLocationAlwaysUsageDescription",
             "purpose": "To use that feature, the app needs access to your location.",
             "platform": "ios",
-            "required": true <<
-                << << < HEAD ===
-                === =
-        },
-        {
-            "title": "Location - When In Use Usage",
-            "name": "NSLocationWhenInUseUsageDescription",
-            "purpose": "To use that feature, the app needs access to your location.",
-            "platform": "ios",
             "required": true
-        },
-        {
-            "title": "Location - Always And When in Use Usage",
-            "name": "NSLocationAlwaysAndWhenInUseUsageDescription",
-            "purpose": "To use that feature, the app needs access to your location.",
-            "platform": "ios",
-            "required": true >>>
-                >>> > a090a2a([NBUI] Update template configuration)
         }
     ],
     "capabilities": {
         "deepLink": {
             "value": "",
-            <<
-            << << < HEAD "enabled": false,
+            "enabled": false,
             "android": {
                 "webLinks": [{
                     "host": "",
                     "path": ""
                 }]
-            } ===
-            === =
-            "enabled": false >>>
-                >>> > a090a2a([NBUI] Update template configuration)
+            }
         },
         "maps": {
             "value": "",
