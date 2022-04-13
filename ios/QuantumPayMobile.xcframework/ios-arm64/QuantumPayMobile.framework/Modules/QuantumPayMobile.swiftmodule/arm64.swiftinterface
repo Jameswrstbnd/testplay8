@@ -1,0 +1,715 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+// swift-module-flags: -target arm64-apple-ios12.1 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name QuantumPayMobile
+import CommonCrypto
+import Foundation
+import Network
+import ObjectBox
+import QuantumPayClient
+@_exported import QuantumPayMobile
+import Swift
+import UIKit
+import _Concurrency
+@_hasMissingDesignatedInitializers public class PaymentPeripheral : QuantumPayMobile.IPaymentPeripheral {
+  public var decisionProvider: QuantumPayMobile.IPaymentDecisionProvider?
+  public var transactionStateHandler: QuantumPayMobile.TransactionStateHandler?
+  public var registrationData: QuantumPayClient.PeripheralRegistrationData?
+  public func startTransaction(transaction: QuantumPayClient.Transaction, timeout: Foundation.TimeInterval) -> Swift.Bool
+  public func stopActiveTransaction() throws
+  public func getEmvConfigurationVersionNumbers() -> [QuantumPayClient.EmvConfigurationKey : Swift.Int]
+  public func getDeviceData() -> QuantumPayClient.TransactionDeviceData
+  public func getSoftwareData() -> QuantumPayClient.TransactionSoftwareData
+  public var peripheralStateHandler: QuantumPayMobile.PeripheralStateHandler?
+  public var peripheralMessageHandler: QuantumPayMobile.PeripheralMessageHandler?
+  public var peripheralState: QuantumPayMobile.PeripheralState {
+    get
+  }
+  public var connectionStateHandler: QuantumPayMobile.ConnectionStateHandler?
+  public var logger: QuantumPayClient.ILogger?
+  public var configuration: QuantumPayMobile.ConfigurationProvider?
+  public var availableCapabilities: [QuantumPayClient.PeripheralCapability]?
+  public var enabledCapabilities: [QuantumPayClient.PeripheralCapability]?
+  public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  public var connectionState: QuantumPayMobile.ConnectionState {
+    get
+  }
+  public var serialNumber: Swift.String {
+    get
+  }
+  public var deviceType: Swift.String {
+    get
+  }
+  public var firmwareVersion: Swift.String {
+    get
+  }
+  public var hardwareVersion: Swift.String {
+    get
+  }
+  public var batteryPercentage: Swift.Int {
+    get
+  }
+  public func connect(handler: QuantumPayMobile.ConnectionStateHandler?)
+  public func disconnect()
+  public func setIdleTimeout(timeout: Foundation.TimeInterval) -> Swift.Bool
+  public func destroy()
+  @objc deinit
+}
+public typealias EmvApplicationSelectionEvent = (_ paymentEngine: QuantumPayMobile.PaymentEngine, _ peripheral: QuantumPayMobile.IPeripheral, _ transaction: QuantumPayClient.Transaction, _ selection: QuantumPayMobile.EmvApplicationSelection) -> Swift.Void
+public protocol IPaymentDecisionProvider {
+  var emvApplicationSelectionStrategy: QuantumPayMobile.EmvApplicationSelectionStrategy { get }
+  func getEmvApplication(index: Swift.Int, id: Swift.String, name: Swift.String) -> QuantumPayMobile.EmvApplication
+  func requireEmvApplicationSelection(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction, emvApps: [QuantumPayMobile.EmvApplication], onSelection: @escaping (Swift.Int32) -> ())
+  func isOnline() -> Swift.Bool
+  func isOnlineAllowed() -> Swift.Bool
+  func onlineDecision(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction, callback: ((QuantumPayClient.TransactionResult?) -> Swift.Void)?)
+  func finalDecision(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction, result: QuantumPayClient.TransactionResult, transactionState: QuantumPayMobile.TransactionState, callback: (() -> Swift.Void)?)
+  func getPeripheralData(peripheral: QuantumPayMobile.IPeripheral, callback: @escaping (QuantumPayClient.IPeripheralData?) -> Swift.Void)
+  func offlineDecision(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction) -> QuantumPayClient.EmvTlvList
+  func onlineDecision(peripheral: QuantumPayMobile.IPeripheral, onlineTransactionResult: QuantumPayClient.TransactionResult) -> QuantumPayClient.EmvTlvList
+}
+public enum EmvApplicationSelectionStrategy : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case defaultStrategy
+  case first
+  case userInterfacePicker
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayMobile.EmvApplicationSelectionStrategy]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayMobile.EmvApplicationSelectionStrategy] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias PeripheralStateHandler = (_ peripheral: QuantumPayMobile.IPeripheral, _ state: QuantumPayMobile.PeripheralState) -> Swift.Void
+public typealias PeripheralStateEvent = (_ paymentEngine: QuantumPayMobile.PaymentEngine, _ peripheral: QuantumPayMobile.IPeripheral, _ state: QuantumPayMobile.PeripheralState) -> Swift.Void
+public typealias EmvApplicationSelectionHandler = (_ peripheral: QuantumPayMobile.IPeripheral, _ transaction: QuantumPayClient.Transaction, _ selection: QuantumPayMobile.EmvApplicationSelection) -> Swift.Void
+@objc @_inheritsConvenienceInitializers public class Parameters : ObjectiveC.NSObject, Swift.Codable {
+  public var offline: Swift.Bool
+  public var merchantID: Swift.String?
+  public var receiptName: Swift.String?
+  public var receiptType: Swift.String?
+  public var showTipOnReceipt: Swift.Bool
+  public var signatureBlockRequiredThreshold: Foundation.Decimal
+  public var receiptHeader: [Swift.String]
+  public var receiptFooter: [Swift.String]
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class ReceiptTemplate : ObjectiveC.NSObject, Swift.Codable {
+  public var lines: [QuantumPayMobile.LineObject]?
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class LineObject : ObjectiveC.NSObject, Swift.Codable {
+  public var text: QuantumPayMobile.TextObject?
+  public var textArray: QuantumPayMobile.TextObject?
+  public var section: QuantumPayMobile.SectionObject?
+  public var lineFeed: QuantumPayMobile.PrintObject?
+  public var singleLine: QuantumPayMobile.PrintObject?
+  public var isVisible: Swift.Bool?
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class SectionObject : ObjectiveC.NSObject, Swift.Codable {
+  public var name: Swift.String?
+  public var items: [QuantumPayMobile.LineObject]?
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class PrintObject : ObjectiveC.NSObject, Swift.Codable {
+  public var width: Swift.String?
+  public var height: Swift.String?
+  @objc override dynamic public init()
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class TextObject : ObjectiveC.NSObject, Swift.Codable {
+  public var type: Swift.String?
+  public var name: Swift.String?
+  public var cells: [QuantumPayMobile.CellObject]?
+  public var isVisible: Swift.Bool?
+  @objc override dynamic public init()
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class CellObject : ObjectiveC.NSObject, Swift.Codable {
+  public var id: Swift.String?
+  public var value: Swift.String?
+  public var isBold: Swift.Bool?
+  public var isDoubleSize: Swift.Bool?
+  public var width: Swift.String?
+  public var alignment: Swift.String?
+  @objc override dynamic public init()
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DefaultTemplate : Swift.Codable {
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public protocol IPlugin {
+  @objc var name: Swift.String { get set }
+}
+@_hasMissingDesignatedInitializers public class CodableHelper {
+  public class func toObjectFrom<T>(_ object: Swift.String?) -> T? where T : Swift.Decodable
+  public class func toObjectFrom<T>(_ data: Foundation.Data?) -> T? where T : Swift.Decodable
+  public class func toString<T>(_ from: T) -> Swift.String? where T : Swift.Encodable
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class PeripheralConfiguration : Swift.Codable {
+  public var emsrKeyId: Swift.Int? {
+    get
+  }
+  public var emvKeyId: Swift.Int? {
+    get
+  }
+  public var pinAttempts: Swift.Int? {
+    get
+  }
+  public var blockPowerButton: Swift.Bool? {
+    get
+  }
+  public var blockCancelButton: Swift.Bool? {
+    get
+  }
+  public var blockSettingsButton: Swift.Bool? {
+    get
+  }
+  public var firmwareUpdate: Swift.Bool? {
+    get
+  }
+  public var askForFirmwareUpdate: Swift.Bool? {
+    get
+  }
+  public var allowFirmwareDowngrade: Swift.Bool? {
+    get
+  }
+  public var loadCertificate: Swift.Bool? {
+    get
+  }
+  public var forceLoadCertificate: Swift.Bool? {
+    get
+  }
+  public var idleTimeout: Swift.Int? {
+    get
+  }
+  public var merchantOverrideFloorLimit: QuantumPayMobile.MerchantOverrideFloorLimitConfiguration? {
+    get
+  }
+  public var bin: [QuantumPayMobile.BinConfiguration]? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public enum PaymentEngineBuilderException : Swift.Error {
+  case unhandledException
+  case missingRequiredValue(Swift.String)
+}
+extension QuantumPayMobile.PaymentEngineBuilderException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum RegistrationException : Swift.Error {
+  case invalid(Swift.String?)
+}
+extension QuantumPayMobile.RegistrationException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ReceiptHelper {
+  public class func shared() -> QuantumPayMobile.ReceiptHelper
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class EmvCVMResult {
+  public class func shared() -> QuantumPayMobile.EmvCVMResult
+  public func signatureRequired(CVMResult: QuantumPayClient.EmvTlv?) -> Swift.Bool
+  public func onlinePINVerified(CVMResult: QuantumPayClient.EmvTlv?) -> Swift.Bool
+  public func offlinePINVerified(CVMResult: QuantumPayClient.EmvTlv?) -> Swift.Bool
+  public func noCVMRequired(CVMResult: QuantumPayClient.EmvTlv?) -> Swift.Bool
+  @objc deinit
+}
+public enum ConnectionState : Swift.Int, Swift.CaseIterable {
+  case disconnected
+  case connecting
+  case connected
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayMobile.ConnectionState]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayMobile.ConnectionState] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers public class EmbeddedConfigurationProvider : QuantumPayMobile.ConfigurationProvider {
+  override public var isReady: Swift.Bool {
+    get
+    set
+  }
+  override public func getEmvConfiguration(key: QuantumPayClient.EmvConfigurationKey) -> QuantumPayClient.EmvTlvList?
+  override public func getEmvConfigurationVersionNumbers() -> [QuantumPayClient.EmvConfigurationKey : Swift.Int]
+  override public func getJson<T>(key: Swift.String) -> T? where T : Swift.Decodable, T : Swift.Encodable
+  override public func getPeripheralConfiguration() -> QuantumPayMobile.PeripheralConfiguration?
+  override public init()
+  @objc deinit
+}
+public typealias IObservableBuilderHandler<T> = (_ result: T) -> Swift.Void
+@_hasMissingDesignatedInitializers public class PaymentEngine : QuantumPayMobile.IPaymentDecisionProvider {
+  public static let paymentConfigurationFileName: Swift.String
+  final public let transactionTimeoutInSeconds: Foundation.TimeInterval
+  public var paymentCapabilities: [QuantumPayClient.PeripheralCapability] {
+    get
+  }
+  public var posID: Swift.String {
+    get
+  }
+  public var storeAndForwardMode: QuantumPayMobile.StoreAndForwardMode
+  public var connectionStateChanged: QuantumPayMobile.ConnectionStateEvent?
+  public var transactionStateChanged: QuantumPayMobile.TransactionStateEvent?
+  public var transactionResult: QuantumPayMobile.TransactionResultEvent?
+  public var peripheralStateChanged: QuantumPayMobile.PeripheralStateEvent?
+  public var peripheralMessage: QuantumPayMobile.PeripheralMessageEvent?
+  public var emvApplicationSelection: QuantumPayMobile.EmvApplicationSelectionEvent?
+  public var activeTransaction: QuantumPayClient.Transaction? {
+    get
+  }
+  public var configuration: QuantumPayMobile.ConfigurationProvider {
+    get
+  }
+  public var isTestMode: Swift.Bool {
+    get
+  }
+  public var emvApplicationSelectionStrategy: QuantumPayMobile.EmvApplicationSelectionStrategy {
+    get
+  }
+  public var peripherals: [QuantumPayMobile.IPeripheral] {
+    get
+  }
+  public var paymentPeripheral: QuantumPayMobile.IPaymentPeripheral? {
+    get
+  }
+  public func requireEmvApplicationSelection(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction, emvApps: [QuantumPayMobile.EmvApplication], onSelection: @escaping (Swift.Int32) -> ())
+  public func getEmvApplication(index: Swift.Int, id: Swift.String, name: Swift.String) -> QuantumPayMobile.EmvApplication
+  public func offlineDecision(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction) -> QuantumPayClient.EmvTlvList
+  public func onlineDecision(peripheral: QuantumPayMobile.IPeripheral, onlineTransactionResult: QuantumPayClient.TransactionResult) -> QuantumPayClient.EmvTlvList
+  public func buildTransaction() -> QuantumPayClient.TransactionBuilder
+  public func buildTransaction(invoice: QuantumPayClient.Invoice) -> QuantumPayClient.TransactionBuilder
+  public func buildInvoice(reference: Swift.String) -> QuantumPayClient.InvoiceBuilder
+  public func setConnectionStateHandler(handler: @escaping QuantumPayMobile.ConnectionStateHandler)
+  public func setTransactionStateHandler(handler: @escaping QuantumPayMobile.TransactionStateHandler)
+  public func setTransactionResultHandler(handler: @escaping QuantumPayMobile.TransactionResultHandler)
+  public func setPeripheralStateHandler(handler: @escaping QuantumPayMobile.PeripheralStateHandler)
+  public func setPeripheralMessageHandler(handler: @escaping QuantumPayMobile.PeripheralMessageHandler)
+  public func setEmvApplicationSelectionHandler(handler: @escaping QuantumPayMobile.EmvApplicationSelectionHandler)
+  public func newBuilder() -> QuantumPayMobile.PaymentEngineBuilder?
+  public func connect()
+  public func disconnect()
+  public func stopActiveTransaction() throws
+  public func startTransaction(invoice: QuantumPayClient.Invoice, transaction: (QuantumPayClient.TransactionBuilder) -> Swift.Void, onTransactionResult: ((QuantumPayClient.TransactionResult, QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) -> Swift.Void)?) throws
+  public func startTransaction(transaction: (QuantumPayClient.TransactionBuilder) -> Swift.Void, onTransactionResult: ((QuantumPayClient.TransactionResult, QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) -> Swift.Void)?) throws
+  public func startTransaction(transaction: QuantumPayClient.Transaction, onTransactionResult: ((QuantumPayClient.TransactionResult, QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) -> Swift.Void)?) throws
+  public func getStoredTransactions(onLoadedStoredTransactions: (Swift.Array<QuantumPayClient.TransactionResult>?) -> Swift.Void)
+  public func uploadStoredTransactions(transactions: [QuantumPayClient.TransactionResult], onTransactionsUploaded: (([QuantumPayClient.TransactionResult], QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) -> Swift.Void)?) throws
+  public func uploadAllStoredTransactions(callback: (([QuantumPayClient.TransactionResult]?, QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) -> Swift.Void)?) throws
+  public func getStoredTransaction(transactionId: Swift.String, callback: ((QuantumPayClient.TransactionResult?) -> Swift.Void)?)
+  public func voidStoredTransaction(transactionId: Swift.String, callback: ((Swift.Bool) -> Swift.Void)?) throws
+  public class func builder() -> QuantumPayMobile.PaymentEngineBuilder
+  public func isOnline() -> Swift.Bool
+  public func isOnlineAllowed() -> Swift.Bool
+  public func getPeripheralData(peripheral: QuantumPayMobile.IPeripheral, callback: @escaping (QuantumPayClient.IPeripheralData?) -> Swift.Void)
+  public func onlineDecision(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction, callback: ((QuantumPayClient.TransactionResult?) -> Swift.Void)?)
+  public func finalDecision(peripheral: QuantumPayMobile.IPeripheral, transaction: QuantumPayClient.Transaction, result: QuantumPayClient.TransactionResult, transactionState: QuantumPayMobile.TransactionState, callback: (() -> Swift.Void)?)
+  public func destroy() throws
+  @objc deinit
+}
+public typealias InternetAccessStateHandler = (_ isInternetAccessible: Swift.Bool) -> Swift.Void
+public enum StoreAndForwardMode : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case disabled
+  case whenOffline
+  case always
+  case alwaysBatch
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayMobile.StoreAndForwardMode]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayMobile.StoreAndForwardMode] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+open class BluetoothLePeripheral<T> {
+  public var name: Swift.String {
+    get
+  }
+  public var nativeDevice: T? {
+    get
+  }
+  public init(name: Swift.String)
+  public init(name: Swift.String, device: T)
+  @objc deinit
+}
+public enum PeripheralException : Swift.Error {
+  case unsupported
+  public static func == (a: QuantumPayMobile.PeripheralException, b: QuantumPayMobile.PeripheralException) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension QuantumPayMobile.PeripheralException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class PaymentEngineBuilder : QuantumPayMobile.IObservableBuilder {
+  public typealias T = QuantumPayMobile.PaymentEngine
+  public class func shared() -> QuantumPayMobile.PaymentEngineBuilder
+  public class func registerSupportedPeripheralTypes(peripheralTypes: [Any])
+  public class func ensureValidPeripheralType(peripheralType: Any) throws
+  public func emvApplicationSelectionStrategy(strategy: QuantumPayMobile.EmvApplicationSelectionStrategy) -> QuantumPayMobile.PaymentEngineBuilder
+  public func server(server: QuantumPayClient.ServerEnvironment) -> QuantumPayMobile.PaymentEngineBuilder
+  public func registrationCredentials(username: Swift.String, password: Swift.String) throws -> QuantumPayMobile.PaymentEngineBuilder
+  public func posID(posID: Swift.String) -> QuantumPayMobile.PaymentEngineBuilder
+  public func storeAndForward(mode: QuantumPayMobile.StoreAndForwardMode = StoreAndForwardMode.alwaysBatch, autoUploadInterval: Foundation.TimeInterval?) -> QuantumPayMobile.PaymentEngineBuilder
+  public func storeAndForwardWhenOffline(autoUploadInterval: Foundation.TimeInterval?) -> QuantumPayMobile.PaymentEngineBuilder
+  public func logger(logger: QuantumPayClient.ILogger) -> QuantumPayMobile.PaymentEngineBuilder
+  public func configureFrom(configurationProvider: QuantumPayMobile.ConfigurationProvider) -> QuantumPayMobile.PaymentEngineBuilder
+  public func removePeripheral<TPeripheral>(peripheral: TPeripheral) -> QuantumPayMobile.PaymentEngineBuilder where TPeripheral : QuantumPayMobile.IPeripheral
+  public func removeAllPeripherals() -> QuantumPayMobile.PaymentEngineBuilder
+  public func getAllPeripherals() -> [QuantumPayMobile.IPeripheral]
+  public func addPeripheral<TPeripheral>(peripheral: TPeripheral, capabilities: Swift.Array<QuantumPayClient.PeripheralCapability> = [PeripheralCapability.unknown], autoConnect: Swift.Bool = false) throws -> QuantumPayMobile.PaymentEngineBuilder where TPeripheral : QuantumPayMobile.IPeripheral
+  public func transactionTimeout(timeoutInSeconds: Foundation.TimeInterval) -> QuantumPayMobile.PaymentEngineBuilder
+  public func unhandledExceptionHandler(handler: QuantumPayMobile.ExceptionHandler?) throws -> QuantumPayMobile.PaymentEngineBuilder
+  public func build(handler: (QuantumPayMobile.PaymentEngine) -> Swift.Void) throws
+  @objc deinit
+}
+extension QuantumPayMobile.PeripheralState {
+  public func isCardEvent() -> Swift.Bool
+}
+public enum DuplicatePeripheralException : Swift.Error {
+  case duplicatedPeripheral(Swift.String?)
+}
+extension QuantumPayMobile.DuplicatePeripheralException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class EmvApplicationSelection {
+  public var emvApplications: [QuantumPayMobile.EmvApplication] {
+    get
+  }
+  public func selectApplication(emvApplication: QuantumPayMobile.EmvApplication)
+  public func selectFirstApplication()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class EmvApplication {
+  public var index: Swift.Int {
+    get
+  }
+  public var id: Swift.String {
+    get
+  }
+  public var name: Swift.String {
+    get
+  }
+  public func stringValue() -> Swift.String
+  @objc deinit
+}
+public protocol IPaymentPeripheral : QuantumPayMobile.IPeripheral {
+  var decisionProvider: QuantumPayMobile.IPaymentDecisionProvider? { get set }
+  var transactionStateHandler: QuantumPayMobile.TransactionStateHandler? { get set }
+  var registrationData: QuantumPayClient.PeripheralRegistrationData? { get }
+  func startTransaction(transaction: QuantumPayClient.Transaction, timeout: Foundation.TimeInterval) -> Swift.Bool
+  func stopActiveTransaction() throws
+  func getEmvConfigurationVersionNumbers() -> [QuantumPayClient.EmvConfigurationKey : Swift.Int]
+  func getDeviceData() -> QuantumPayClient.TransactionDeviceData
+  func getSoftwareData() -> QuantumPayClient.TransactionSoftwareData
+}
+public enum TransactionState : Swift.Int, Swift.CaseIterable {
+  case inactive
+  case preparing
+  case waitingForCard
+  case waitingForPin
+  case pinAccepted
+  case pinRejected
+  case timedOut
+  case error
+  case cancelled
+  case cardReadFailed
+  case cardReadSuccess
+  case onlineAuthorization
+  case cardAccepted
+  case cardRejected
+  case stored
+  case completed
+  case void
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayMobile.TransactionState]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayMobile.TransactionState] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public class MerchantOverrideFloorLimitConfiguration : Swift.Codable {
+  public var msr: Swift.String? {
+    get
+  }
+  public var contactless: Swift.String? {
+    get
+  }
+  public var contact: Swift.String? {
+    get
+  }
+  public init(msr: Swift.String, contactless: Swift.String, contact: Swift.String)
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public enum PeripheralMessage : Swift.Int, Swift.CaseIterable {
+  case none
+  case notWorking
+  case idle
+  case presentCard
+  case insertCard
+  case enterPin
+  case processing
+  case errorProcessing
+  case removeCard
+  case cardReadOkRemoveCard
+  case tryOtherInterface
+  case cardCollision
+  case tryAnotherCard
+  case presentCardAgain
+  case onlineAuthorization
+  case seePhone
+  case clearDisplay
+  case signatureApproved
+  case approved
+  case declined
+  case selectApplication
+  case manualEntry
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayMobile.PeripheralMessage]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayMobile.PeripheralMessage] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class PosID {
+  @objc deinit
+}
+public typealias ConnectionStateHandler = (_ peripheral: QuantumPayMobile.IPeripheral, _ connectionState: QuantumPayMobile.ConnectionState) -> Swift.Void
+public typealias ConnectionStateEvent = (_ paymentEngine: QuantumPayMobile.PaymentEngine, _ peripheral: QuantumPayMobile.IPeripheral, _ connectionState: QuantumPayMobile.ConnectionState) -> Swift.Void
+open class ConfigurationProvider {
+  open var isReady: Swift.Bool
+  public init()
+  open func getJson<T>(key: Swift.String) -> T? where T : Swift.Decodable, T : Swift.Encodable
+  open func getPeripheralConfiguration() -> QuantumPayMobile.PeripheralConfiguration?
+  open func getEmvConfiguration(key: QuantumPayClient.EmvConfigurationKey) -> QuantumPayClient.EmvTlvList?
+  open func getEmvConfigurationVersionNumbers() -> [QuantumPayClient.EmvConfigurationKey : Swift.Int]
+  open func configure(paymentEngineBuilder: QuantumPayMobile.PaymentEngineBuilder) throws -> QuantumPayMobile.PaymentEngineBuilder
+  open func configure(transactionBuilder: QuantumPayClient.TransactionBuilder) -> QuantumPayClient.TransactionBuilder
+  open func configure(invoiceBuilder: QuantumPayClient.InvoiceBuilder) -> QuantumPayClient.InvoiceBuilder
+  @objc deinit
+}
+extension QuantumPayMobile.TransactionState {
+  public func isFinalState() -> Swift.Bool
+  public func isFailureState() -> Swift.Bool
+  public func isStoppable() -> Swift.Bool
+}
+public enum ConnectionType : Swift.Int, Swift.CaseIterable {
+  case none
+  case usb
+  case bluetoothLE
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayMobile.ConnectionType]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayMobile.ConnectionType] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol IObservableBuilder {
+  associatedtype T
+  func build(handler: (_ result: Self.T) -> Swift.Void) throws
+}
+@_hasMissingDesignatedInitializers public class GenerateHtmlReceipt {
+  public func run(request: QuantumPayClient.Transaction, response: QuantumPayClient.TransactionResultResponse, parameters: QuantumPayMobile.Parameters, htmlStyle: Swift.String?) -> Swift.String
+  @objc deinit
+}
+public typealias ExceptionHandler = (_ error: Swift.Error) -> Swift.Void
+public typealias TransactionStateHandler = (_ peripheral: QuantumPayMobile.IPeripheral, _ transaction: QuantumPayClient.Transaction, _ transactionState: QuantumPayMobile.TransactionState) -> Swift.Void
+public typealias TransactionStateEvent = (_ paymentEngine: QuantumPayMobile.PaymentEngine, _ peripheral: QuantumPayMobile.IPeripheral, _ transaction: QuantumPayClient.Transaction, _ transactionState: QuantumPayMobile.TransactionState) -> Swift.Void
+public protocol IPrinter : QuantumPayMobile.IPeripheral {
+}
+public protocol IPeripheral {
+  var peripheralStateHandler: QuantumPayMobile.PeripheralStateHandler? { get set }
+  var peripheralMessageHandler: QuantumPayMobile.PeripheralMessageHandler? { get set }
+  var peripheralState: QuantumPayMobile.PeripheralState { get }
+  var connectionStateHandler: QuantumPayMobile.ConnectionStateHandler? { get set }
+  var logger: QuantumPayClient.ILogger? { get set }
+  var configuration: QuantumPayMobile.ConfigurationProvider? { get set }
+  var availableCapabilities: [QuantumPayClient.PeripheralCapability]? { get }
+  var enabledCapabilities: [QuantumPayClient.PeripheralCapability]? { get set }
+  var connectionType: QuantumPayMobile.ConnectionType { get }
+  var connectionState: QuantumPayMobile.ConnectionState { get }
+  var serialNumber: Swift.String { get }
+  var deviceType: Swift.String { get }
+  var firmwareVersion: Swift.String { get }
+  var hardwareVersion: Swift.String { get }
+  var batteryPercentage: Swift.Int { get }
+  func connect(handler: QuantumPayMobile.ConnectionStateHandler?)
+  func disconnect()
+  func setIdleTimeout(timeout: Foundation.TimeInterval) -> Swift.Bool
+  func destroy()
+}
+public typealias PeripheralMessageHandler = (_ peripheral: QuantumPayMobile.IPeripheral, _ message: QuantumPayMobile.PeripheralMessage) -> Swift.Void
+public typealias PeripheralMessageEvent = (_ paymentEngine: QuantumPayMobile.PaymentEngine, _ peripheral: QuantumPayMobile.IPeripheral, _ message: QuantumPayMobile.PeripheralMessage) -> Swift.Void
+public enum NoActiveTransactionException : Swift.Error {
+  case noActiveTransaction
+  public static func == (a: QuantumPayMobile.NoActiveTransactionException, b: QuantumPayMobile.NoActiveTransactionException) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension QuantumPayMobile.NoActiveTransactionException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public class ConnectivityChecker : QuantumPayMobile.IPlugin {
+  @objc public var name: Swift.String
+  public var internetAccessChanged: QuantumPayMobile.InternetAccessStateHandler?
+  public var isInternetAccessible: Swift.Bool {
+    get
+  }
+  public init()
+  public func isOnline() -> Swift.Bool
+  @objc deinit
+}
+public class BinConfiguration : Swift.Codable {
+  public var scheme: QuantumPayClient.CardScheme {
+    get
+  }
+  public var mask: Swift.String {
+    get
+  }
+  public var length: Swift.Int {
+    get
+  }
+  public var shouldExclude: Swift.Bool {
+    get
+  }
+  public var maskLength: Swift.Int {
+    get
+  }
+  public init(scheme: QuantumPayClient.CardScheme, mask: Swift.String, length: Swift.Int, shouldExclude: Swift.Bool)
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public typealias TransactionResultHandler = (_ transactionResult: QuantumPayClient.TransactionResult) -> Swift.Void
+public typealias TransactionResultEvent = (_ paymentEngine: QuantumPayMobile.PaymentEngine, _ transactionResult: QuantumPayClient.TransactionResult) -> Swift.Void
+public enum TransactionOperationException : Swift.Error {
+  case notFound(Swift.String)
+  case active
+}
+extension QuantumPayMobile.TransactionOperationException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum PeripheralState : Swift.Int, Swift.CaseIterable {
+  case none
+  case notReady
+  case idle
+  case ready
+  case processing
+  case cardRead
+  case error
+  case contactlessCardPresented
+  case contactCardInserted
+  case magneticCardSwiped
+  case contactlessCardRemoved
+  case contactCardRemoved
+  case magneticCardRemoved
+  case contactlessCardError
+  case contactCardError
+  case magneticCardError
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayMobile.PeripheralState]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayMobile.PeripheralState] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension QuantumPayClient.TransactionResultStatus {
+  public func isApproved() -> Swift.Bool
+  public func isDeclined() -> Swift.Bool
+  public func isFailure() -> Swift.Bool
+}
+extension Swift.Int {
+  public func roundUptoNearestMultiple(_ factor: Swift.Int) -> Swift.Int
+}
+extension Foundation.Data {
+  public func dataToHexString() -> Swift.String?
+  public func dataToInt() -> Swift.Int?
+}
+extension QuantumPayMobile.EmvApplicationSelectionStrategy : Swift.Equatable {}
+extension QuantumPayMobile.EmvApplicationSelectionStrategy : Swift.Hashable {}
+extension QuantumPayMobile.EmvApplicationSelectionStrategy : Swift.RawRepresentable {}
+extension QuantumPayMobile.ConnectionState : Swift.Equatable {}
+extension QuantumPayMobile.ConnectionState : Swift.Hashable {}
+extension QuantumPayMobile.ConnectionState : Swift.RawRepresentable {}
+extension QuantumPayMobile.StoreAndForwardMode : Swift.Equatable {}
+extension QuantumPayMobile.StoreAndForwardMode : Swift.Hashable {}
+extension QuantumPayMobile.StoreAndForwardMode : Swift.RawRepresentable {}
+extension QuantumPayMobile.PeripheralException : Swift.Equatable {}
+extension QuantumPayMobile.PeripheralException : Swift.Hashable {}
+extension QuantumPayMobile.PeripheralState : Swift.Equatable {}
+extension QuantumPayMobile.PeripheralState : Swift.Hashable {}
+extension QuantumPayMobile.PeripheralState : Swift.RawRepresentable {}
+extension QuantumPayMobile.TransactionState : Swift.Equatable {}
+extension QuantumPayMobile.TransactionState : Swift.Hashable {}
+extension QuantumPayMobile.TransactionState : Swift.RawRepresentable {}
+extension QuantumPayMobile.PeripheralMessage : Swift.Equatable {}
+extension QuantumPayMobile.PeripheralMessage : Swift.Hashable {}
+extension QuantumPayMobile.PeripheralMessage : Swift.RawRepresentable {}
+extension QuantumPayMobile.ConnectionType : Swift.Equatable {}
+extension QuantumPayMobile.ConnectionType : Swift.Hashable {}
+extension QuantumPayMobile.ConnectionType : Swift.RawRepresentable {}
+extension QuantumPayMobile.NoActiveTransactionException : Swift.Equatable {}
+extension QuantumPayMobile.NoActiveTransactionException : Swift.Hashable {}

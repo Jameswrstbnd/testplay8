@@ -1,0 +1,113 @@
+{
+  "emsrKeyId": -1,
+  "emvKeyId": 0,
+  "pinAttempts": 3,
+  "firmwareUpdate": true,
+  "askForFirmwareUpdate": true,
+  "loadCertificate": true,
+  "forceLoadCertificate": true,
+  "idleTimeoutSecs": 1800,
+  "merchantOverrideFloorLimit": {
+    "msr": "00002710",
+    "contactless": "00002710",
+    "contact": "00002710"
+  },
+  "bin": [
+    {
+      "scheme": "Visa",
+      "mask": "4",
+      "length": 13,
+      "exclude": false
+    },
+    {
+      "scheme": "Visa",
+      "mask": "4",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "Visa",
+      "mask": "4",
+      "length": 19,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "22",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "23",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "24",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "25",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "26",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "27",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "51",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "52",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "53",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "54",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "MasterCard",
+      "mask": "55",
+      "length": 16,
+      "exclude": false
+    },
+    {
+      "scheme": "Amex",
+      "mask": "34",
+      "length": 15,
+      "exclude": false
+    },
+    {
+      "scheme": "Amex",
+      "mask": "37",
+      "length": 15,
+      "exclude": false
+    }
+  ]
+}

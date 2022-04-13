@@ -1,0 +1,11 @@
+framework module QuantumPayPeripheral {
+  umbrella header "QuantumPayPeripheral.h"
+
+  export *
+  module * { export * }
+}
+
+module QuantumPayPeripheral.Swift {
+    header "QuantumPayPeripheral-Swift.h"
+    requires objc
+}

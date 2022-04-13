@@ -1,0 +1,1558 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+// swift-module-flags: -target arm64-apple-ios12.1 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name QuantumPayClient
+import Foundation
+@_exported import QuantumPayClient
+import Swift
+import _Concurrency
+@_hasMissingDesignatedInitializers public class DeregisterResponse : Swift.Codable {
+  public var serialNumber: Swift.String? {
+    get
+  }
+  public var errorMessage: Swift.String? {
+    get
+  }
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public class Transaction : Swift.Codable {
+  public var posID: Swift.String
+  public var ID: Swift.String
+  public var transactionDateTime: Foundation.Date
+  public var transactionType: QuantumPayClient.TransactionType
+  public var transactionReference: Swift.String
+  public var transactionAmount: Foundation.Decimal
+  public var currency: QuantumPayClient.Currency
+  public var metaData: [Swift.String : Swift.String]?
+  public var service: Swift.String?
+  public var invoice: QuantumPayClient.Invoice?
+  public var capabilities: [QuantumPayClient.PeripheralCapability]?
+  public var fallbackReason: QuantumPayClient.TransactionFallbackReason
+  public var email: Swift.String?
+  public var test: Swift.Bool
+  public var properties: QuantumPayClient.TransactionData?
+  public var device: QuantumPayClient.TransactionDeviceData?
+  public var software: QuantumPayClient.TransactionSoftwareData?
+  public var resultHandler: ((QuantumPayClient.TransactionResult, QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) -> Swift.Void)?
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(posID: Swift.String, transactionID: Swift.String, capabilities: [QuantumPayClient.PeripheralCapability], transactionDateTime: Foundation.Date, transactionType: QuantumPayClient.TransactionType, transactionReference: Swift.String, transactionAmount: Foundation.Decimal, currency: QuantumPayClient.Currency, metaData: [Swift.String : Swift.String]?, service: Swift.String?, fallbackReason: QuantumPayClient.TransactionFallbackReason = .none, customerEmailAddress: Swift.String?, secureFormat: QuantumPayClient.SecureFormat?, invoice: QuantumPayClient.Invoice?, test: Swift.Bool = false, data: QuantumPayClient.TransactionData? = nil)
+  @objc deinit
+}
+public class TransactionSoftwareData : Swift.Codable {
+  public var sdkVersion: Swift.String
+  public var name: Swift.String
+  public var version: Swift.String
+  public var os: Swift.String
+  public init(sdkVersion: Swift.String, name: Swift.String, version: Swift.String, OS: Swift.String)
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public enum TransactionSource : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case unknown
+  case msr
+  case contactless
+  case chip
+  case manualEntry
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func stringValue() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.TransactionSource]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.TransactionSource] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias IIsPeripheralRegisteredCallback = (Swift.Bool) -> Swift.Void
+public class TransactionResult : Swift.Codable {
+  public var transaction: QuantumPayClient.Transaction {
+    get
+  }
+  public var status: QuantumPayClient.TransactionResultStatus {
+    get
+  }
+  public var uploaded: Foundation.Date? {
+    get
+  }
+  public var warning: QuantumPayClient.ApiResponseError? {
+    get
+  }
+  public var error: QuantumPayClient.ApiResponseError? {
+    get
+  }
+  public var response: QuantumPayClient.TransactionResultResponse? {
+    get
+  }
+  public var reason: Swift.String? {
+    get
+  }
+  public var receipt: QuantumPayClient.TransactionReceipt?
+  public var isUploaded: Swift.Bool {
+    get
+  }
+  public var ID: Swift.String {
+    get
+  }
+  public var transactionDateTime: Foundation.Date {
+    get
+  }
+  public var transactionType: QuantumPayClient.TransactionType {
+    get
+  }
+  public var transactionReference: Swift.String {
+    get
+  }
+  public var transactionAmount: Foundation.Decimal {
+    get
+  }
+  public var currency: QuantumPayClient.Currency {
+    get
+  }
+  public var metaData: [Swift.String : Swift.String]? {
+    get
+  }
+  public var service: Swift.String? {
+    get
+  }
+  public var properties: QuantumPayClient.TransactionData? {
+    get
+  }
+  public var test: Swift.Bool {
+    get
+  }
+  public init(transaction: QuantumPayClient.Transaction, status: QuantumPayClient.TransactionResultStatus = TransactionResultStatus.none, uploaded: Foundation.Date?)
+  public init(transaction: QuantumPayClient.Transaction, status: QuantumPayClient.TransactionResultStatus = TransactionResultStatus.none, uploaded: Foundation.Date?, response: QuantumPayClient.TransactionResultResponse?, reason: Swift.String?, receipt: QuantumPayClient.TransactionReceipt?, warning: QuantumPayClient.ApiResponseError?, error: QuantumPayClient.ApiResponseError?)
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc deinit
+  required public init(from decoder: Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class ApiResponseError : Swift.Codable {
+  public var number: Swift.Int? {
+    get
+  }
+  public var type: Swift.String? {
+    get
+  }
+  public var reference: Swift.String? {
+    get
+  }
+  public var message: Swift.String? {
+    get
+  }
+  public var id: Swift.String {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public enum TransactionType : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case notSet
+  case sale
+  case refund
+  case void
+  case auth
+  case capture
+  case undo
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func isCardReadRequired() -> Swift.Bool
+  public func stringValue() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.TransactionType]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.TransactionType] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class Invoice : Swift.Codable {
+  public var invoiceReference: Swift.String
+  public var companyName: Swift.String?
+  public var purchaseOrderReference: Swift.String?
+  public var net: Foundation.Decimal
+  public var tax: Foundation.Decimal
+  public var discount: Foundation.Decimal
+  public var tip: Foundation.Decimal
+  public var gross: Foundation.Decimal
+  public var items: [QuantumPayClient.InvoiceItem]
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class ServerEnvironment : ObjectiveC.NSObject {
+  @objc public var displayName: Swift.String {
+    get
+  }
+  @objc public var host: Swift.String {
+    get
+  }
+  @objc public var isTest: Swift.Bool {
+    get
+  }
+  @objc public static var production: QuantumPayClient.ServerEnvironment {
+    @objc get
+  }
+  @objc public static var test: QuantumPayClient.ServerEnvironment {
+    @objc get
+  }
+  @objc public static var developer: QuantumPayClient.ServerEnvironment {
+    @objc get
+  }
+  @objc public func otherServers() -> [QuantumPayClient.ServerEnvironment]
+  @objc public class func useTenant(tenant: QuantumPayClient.Tenant)
+  @objc deinit
+}
+public class AuthToken : Swift.Codable {
+  public var access_token: Swift.String? {
+    get
+  }
+  public var expires_in: Foundation.TimeInterval? {
+    get
+  }
+  public var token_type: Swift.String? {
+    get
+  }
+  public var dateCreated: Foundation.Date? {
+    get
+  }
+  public var scope: Swift.String? {
+    get
+  }
+  public var expires: Foundation.Date {
+    get
+  }
+  public var hasExpired: Swift.Bool {
+    get
+  }
+  public var username: Swift.String? {
+    get
+  }
+  public var issueUrl: Swift.String? {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@_hasMissingDesignatedInitializers public class InvoiceItem : Swift.Codable {
+  public var productCode: Swift.String?
+  public var productDescription: Swift.String?
+  public var saleCode: QuantumPayClient.SaleCode?
+  public var quantity: Swift.Int
+  public var unitOfMeasureCode: QuantumPayClient.UnitOfMeasure?
+  public var unitPrice: Foundation.Decimal
+  public var taxIncludedInPrice: Swift.Bool
+  public var net: Foundation.Decimal
+  public var tax: Foundation.Decimal
+  public var discount: Foundation.Decimal
+  public var gross: Foundation.Decimal
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public protocol ILogger {
+  var level: QuantumPayClient.LoggingLevel { get set }
+  func error(exception: Foundation.NSException, message: Swift.String)
+  func error(message: Swift.String)
+  func warning(message: Swift.String)
+  func info(message: Swift.String)
+  func debug(message: Swift.String)
+  func verbose(message: Swift.String)
+}
+public enum TransactionFailureReason : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case none
+  case cancelled
+  case timeout
+  case cardReaderFailed
+  case cardBlocked
+  case error
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func stringValue() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.TransactionFailureReason]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.TransactionFailureReason] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum SaleCode : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case S
+  case R
+  case L
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func stringValue() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.SaleCode]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.SaleCode] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol ITransaction {
+  var id: Foundation.UUID? { get set }
+  var dateTime: Foundation.Date { get set }
+  var type: QuantumPayClient.TransactionType { get set }
+  var reference: Swift.String { get set }
+  var amount: Foundation.Decimal { get set }
+  var currency: QuantumPayClient.Currency { get set }
+  var metaData: [Swift.String : Swift.String] { get set }
+  var service: Swift.String? { get set }
+  var properties: QuantumPayClient.TransactionData { get set }
+  var isTest: Swift.Bool { get set }
+}
+@_hasMissingDesignatedInitializers public class Currency : Swift.Codable {
+  public var code: Swift.String
+  public var numericCode: Swift.Int
+  public var minorUnits: Swift.Int
+  public var oneInMinorUnits: Swift.Int {
+    get
+  }
+  public var one: Foundation.Decimal {
+    get
+  }
+  public func inMajorUnits(minorUnits: Swift.Int) -> Foundation.Decimal
+  public func inMinorUnits(majorUnits: Foundation.Decimal) -> Swift.Int
+  public func toAuthorizedAmount(majorUnits: Swift.Int) -> Swift.String
+  public static var AED: QuantumPayClient.Currency
+  public static var AFN: QuantumPayClient.Currency
+  public static var ALL: QuantumPayClient.Currency
+  public static var AMD: QuantumPayClient.Currency
+  public static var ANG: QuantumPayClient.Currency
+  public static var AOA: QuantumPayClient.Currency
+  public static var ARS: QuantumPayClient.Currency
+  public static var AUD: QuantumPayClient.Currency
+  public static var AWG: QuantumPayClient.Currency
+  public static var AZN: QuantumPayClient.Currency
+  public static var BAM: QuantumPayClient.Currency
+  public static var BBD: QuantumPayClient.Currency
+  public static var BDT: QuantumPayClient.Currency
+  public static var BGN: QuantumPayClient.Currency
+  public static var BHD: QuantumPayClient.Currency
+  public static var BIF: QuantumPayClient.Currency
+  public static var BMD: QuantumPayClient.Currency
+  public static var BND: QuantumPayClient.Currency
+  public static var BOB: QuantumPayClient.Currency
+  public static var BRL: QuantumPayClient.Currency
+  public static var BSD$: QuantumPayClient.Currency
+  public static var BTN: QuantumPayClient.Currency
+  public static var BWP: QuantumPayClient.Currency
+  public static var BYN: QuantumPayClient.Currency
+  public static var BZD: QuantumPayClient.Currency
+  public static var CAD: QuantumPayClient.Currency
+  public static var CDF: QuantumPayClient.Currency
+  public static var CHF: QuantumPayClient.Currency
+  public static var CLP: QuantumPayClient.Currency
+  public static var CNY: QuantumPayClient.Currency
+  public static var COP: QuantumPayClient.Currency
+  public static var CRC: QuantumPayClient.Currency
+  public static var CUC: QuantumPayClient.Currency
+  public static var CUP: QuantumPayClient.Currency
+  public static var CVE: QuantumPayClient.Currency
+  public static var CZK: QuantumPayClient.Currency
+  public static var DJF: QuantumPayClient.Currency
+  public static var DKK: QuantumPayClient.Currency
+  public static var DOP: QuantumPayClient.Currency
+  public static var DZD: QuantumPayClient.Currency
+  public static var EGP: QuantumPayClient.Currency
+  public static var ERN: QuantumPayClient.Currency
+  public static var ETB: QuantumPayClient.Currency
+  public static var EUR: QuantumPayClient.Currency
+  public static var FJD: QuantumPayClient.Currency
+  public static var FKP: QuantumPayClient.Currency
+  public static var GBP: QuantumPayClient.Currency
+  public static var GEL: QuantumPayClient.Currency
+  public static var GHS: QuantumPayClient.Currency
+  public static var GIP: QuantumPayClient.Currency
+  public static var GMD: QuantumPayClient.Currency
+  public static var GNF: QuantumPayClient.Currency
+  public static var GTQ: QuantumPayClient.Currency
+  public static var GYD: QuantumPayClient.Currency
+  public static var HKD: QuantumPayClient.Currency
+  public static var HNL: QuantumPayClient.Currency
+  public static var HRK: QuantumPayClient.Currency
+  public static var HTG: QuantumPayClient.Currency
+  public static var HUF: QuantumPayClient.Currency
+  public static var IDR: QuantumPayClient.Currency
+  public static var ILS: QuantumPayClient.Currency
+  public static var INR: QuantumPayClient.Currency
+  public static var IQD: QuantumPayClient.Currency
+  public static var IRR: QuantumPayClient.Currency
+  public static var ISK: QuantumPayClient.Currency
+  public static var JMD: QuantumPayClient.Currency
+  public static var JOD: QuantumPayClient.Currency
+  public static var JPY: QuantumPayClient.Currency
+  public static var KES: QuantumPayClient.Currency
+  public static var KGS: QuantumPayClient.Currency
+  public static var KHR: QuantumPayClient.Currency
+  public static var KMF: QuantumPayClient.Currency
+  public static var KPW: QuantumPayClient.Currency
+  public static var KRW: QuantumPayClient.Currency
+  public static var KWD: QuantumPayClient.Currency
+  public static var KYD: QuantumPayClient.Currency
+  public static var KZT: QuantumPayClient.Currency
+  public static var LAK: QuantumPayClient.Currency
+  public static var LBP: QuantumPayClient.Currency
+  public static var LKR: QuantumPayClient.Currency
+  public static var LRD: QuantumPayClient.Currency
+  public static var LSL: QuantumPayClient.Currency
+  public static var LYD: QuantumPayClient.Currency
+  public static var MAD: QuantumPayClient.Currency
+  public static var MDL: QuantumPayClient.Currency
+  public static var MGA: QuantumPayClient.Currency
+  public static var MKD: QuantumPayClient.Currency
+  public static var MMK: QuantumPayClient.Currency
+  public static var MNT: QuantumPayClient.Currency
+  public static var MOP: QuantumPayClient.Currency
+  public static var MRU: QuantumPayClient.Currency
+  public static var MUR: QuantumPayClient.Currency
+  public static var MVR: QuantumPayClient.Currency
+  public static var MWK: QuantumPayClient.Currency
+  public static var MXN: QuantumPayClient.Currency
+  public static var MYR: QuantumPayClient.Currency
+  public static var MZN: QuantumPayClient.Currency
+  public static var NAD: QuantumPayClient.Currency
+  public static var NGN: QuantumPayClient.Currency
+  public static var NIO: QuantumPayClient.Currency
+  public static var NOK: QuantumPayClient.Currency
+  public static var NPR: QuantumPayClient.Currency
+  public static var NZD: QuantumPayClient.Currency
+  public static var OMR: QuantumPayClient.Currency
+  public static var PAB: QuantumPayClient.Currency
+  public static var PEN: QuantumPayClient.Currency
+  public static var PGK: QuantumPayClient.Currency
+  public static var PHP: QuantumPayClient.Currency
+  public static var PKR: QuantumPayClient.Currency
+  public static var PLN: QuantumPayClient.Currency
+  public static var PYG: QuantumPayClient.Currency
+  public static var QAR: QuantumPayClient.Currency
+  public static var RON: QuantumPayClient.Currency
+  public static var RSD: QuantumPayClient.Currency
+  public static var RUB: QuantumPayClient.Currency
+  public static var RWF: QuantumPayClient.Currency
+  public static var SAR: QuantumPayClient.Currency
+  public static var SBD: QuantumPayClient.Currency
+  public static var SCR: QuantumPayClient.Currency
+  public static var SDG: QuantumPayClient.Currency
+  public static var SEK: QuantumPayClient.Currency
+  public static var SGD: QuantumPayClient.Currency
+  public static var SHP: QuantumPayClient.Currency
+  public static var SLL: QuantumPayClient.Currency
+  public static var SOS: QuantumPayClient.Currency
+  public static var SRD: QuantumPayClient.Currency
+  public static var SSP: QuantumPayClient.Currency
+  public static var STN: QuantumPayClient.Currency
+  public static var SVC: QuantumPayClient.Currency
+  public static var SYP: QuantumPayClient.Currency
+  public static var SZL: QuantumPayClient.Currency
+  public static var THB: QuantumPayClient.Currency
+  public static var TJS: QuantumPayClient.Currency
+  public static var TMT: QuantumPayClient.Currency
+  public static var TND: QuantumPayClient.Currency
+  public static var TOP: QuantumPayClient.Currency
+  public static var TRY: QuantumPayClient.Currency
+  public static var TTD: QuantumPayClient.Currency
+  public static var TWD: QuantumPayClient.Currency
+  public static var TZS: QuantumPayClient.Currency
+  public static var UAH: QuantumPayClient.Currency
+  public static var UGX: QuantumPayClient.Currency
+  public static var USD: QuantumPayClient.Currency
+  public static var UYU: QuantumPayClient.Currency
+  public static var UYW: QuantumPayClient.Currency
+  public static var UZS: QuantumPayClient.Currency
+  public static var VES: QuantumPayClient.Currency
+  public static var VND: QuantumPayClient.Currency
+  public static var VUV: QuantumPayClient.Currency
+  public static var WST: QuantumPayClient.Currency
+  public static var XAF: QuantumPayClient.Currency
+  public static var XCD: QuantumPayClient.Currency
+  public static var XOF: QuantumPayClient.Currency
+  public static var XPF: QuantumPayClient.Currency
+  public static var YER: QuantumPayClient.Currency
+  public static var ZAR: QuantumPayClient.Currency
+  public static var ZMW: QuantumPayClient.Currency
+  public static var ZWL: QuantumPayClient.Currency
+  public static var allCurrencies: [QuantumPayClient.Currency]
+  public class func getCurrency(code: Swift.String) -> QuantumPayClient.Currency?
+  public class func getCurrency(numericCode: Swift.Int) -> QuantumPayClient.Currency?
+  public class func amount(_ amount: Swift.String) -> Foundation.NSDecimalNumber?
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public enum CardScheme : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case unknown
+  case Visa
+  case MasterCard
+  case Amex
+  case Discover
+  case DinersClub
+  case JCB
+  case ChinaUnionPay
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func stringValue() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.CardScheme]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.CardScheme] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public class TransactionResultResponse : Swift.Codable {
+  public var id: Swift.String?
+  public var seq: Swift.Int?
+  public var gateway: Swift.String?
+  public var transactionType: QuantumPayClient.TransactionType?
+  public var gatewayResult: Swift.Int?
+  public var status: Swift.String?
+  public var authCode: Swift.String?
+  public var gatewayReference: Swift.String?
+  public var responseCode: Swift.String?
+  public var responseMessage: Swift.String?
+  public var responseContent: Swift.String?
+  public var responseEMVData: Foundation.Data?
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public typealias IDeleteAuthTokenCallback = () -> Swift.Void
+@objc @_hasMissingDesignatedInitializers public class DeviceClient : ObjectiveC.NSObject {
+  public var username: Swift.String {
+    get
+  }
+  public func isPeripheralRegistered(serialNumber: Swift.String, callback: @escaping QuantumPayClient.IIsPeripheralRegisteredCallback)
+  public init(serverConfiguration: QuantumPayClient.ServerEnvironment, userCredentials: QuantumPayClient.UserCredentials, tokenStorage: QuantumPayClient.IAuthTokenStorage?, logger: QuantumPayClient.ILogger?)
+  public func getPeripheralRegistrationAsync(serialNumber: Swift.String, callback: QuantumPayClient.IRegisterResultCallback?) rethrows
+  public func deregisterPeripheral(serialNumber: Swift.String, callback: QuantumPayClient.IDeregisterResponseCallback?)
+  public func registerPeripheral(request: QuantumPayClient.PeripheralRegistrationData, callback: QuantumPayClient.IRegisterResultCallback?) rethrows
+  public func clone(serverConfiguration: QuantumPayClient.ServerEnvironment) -> QuantumPayClient.DeviceClient
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class UnitOfMeasure : Swift.Codable {
+  public var code: Swift.String {
+    get
+  }
+  public static let AlcoholicStrengthByMass: QuantumPayClient.UnitOfMeasure
+  public static let AlcoholicStrengthByVolume: QuantumPayClient.UnitOfMeasure
+  public static let Ampere: QuantumPayClient.UnitOfMeasure
+  public static let AmpereHour: QuantumPayClient.UnitOfMeasure
+  public static let Are: QuantumPayClient.UnitOfMeasure
+  public static let Bar: QuantumPayClient.UnitOfMeasure
+  public static let Barrel: QuantumPayClient.UnitOfMeasure
+  public static let Becquerel: QuantumPayClient.UnitOfMeasure
+  public static let BillionEUR: QuantumPayClient.UnitOfMeasure
+  public static let BillionUS: QuantumPayClient.UnitOfMeasure
+  public static let BoardFoot: QuantumPayClient.UnitOfMeasure
+  public static let Box: QuantumPayClient.UnitOfMeasure
+  public static let BrakeHorsePower: QuantumPayClient.UnitOfMeasure
+  public static let BritishThermalUnit: QuantumPayClient.UnitOfMeasure
+  public static let Bushel: QuantumPayClient.UnitOfMeasure
+  public static let Candela: QuantumPayClient.UnitOfMeasure
+  public static let CarryingCapacityInMetricTons: QuantumPayClient.UnitOfMeasure
+  public static let Case: QuantumPayClient.UnitOfMeasure
+  public static let CentalGB: QuantumPayClient.UnitOfMeasure
+  public static let Centigram: QuantumPayClient.UnitOfMeasure
+  public static let Centilitre: QuantumPayClient.UnitOfMeasure
+  public static let Centimetre: QuantumPayClient.UnitOfMeasure
+  public static let CentnerQuintalMetric: QuantumPayClient.UnitOfMeasure
+  public static let Cord: QuantumPayClient.UnitOfMeasure
+  public static let Coulomb: QuantumPayClient.UnitOfMeasure
+  public static let CoulombPerKilogram: QuantumPayClient.UnitOfMeasure
+  public static let CubicDecimetre: QuantumPayClient.UnitOfMeasure
+  public static let CubicFoot: QuantumPayClient.UnitOfMeasure
+  public static let CubicInch: QuantumPayClient.UnitOfMeasure
+  public static let CubicMetre: QuantumPayClient.UnitOfMeasure
+  public static let CubicMetrePerHour: QuantumPayClient.UnitOfMeasure
+  public static let CubicMetrePerSecond: QuantumPayClient.UnitOfMeasure
+  public static let CubicMillimetre: QuantumPayClient.UnitOfMeasure
+  public static let Acre: QuantumPayClient.UnitOfMeasure
+  public static let CubicYard: QuantumPayClient.UnitOfMeasure
+  public static let Curie: QuantumPayClient.UnitOfMeasure
+  public static let Day: QuantumPayClient.UnitOfMeasure
+  public static let Decade: QuantumPayClient.UnitOfMeasure
+  public static let Decare: QuantumPayClient.UnitOfMeasure
+  public static let Decilitre: QuantumPayClient.UnitOfMeasure
+  public static let Decimetre: QuantumPayClient.UnitOfMeasure
+  public static let DegreeFahrenheit: QuantumPayClient.UnitOfMeasure
+  public static let DegreesCelsius: QuantumPayClient.UnitOfMeasure
+  public static let DisplacementTonnage: QuantumPayClient.UnitOfMeasure
+  public static let Dozen: QuantumPayClient.UnitOfMeasure
+  public static let DozenPacks: QuantumPayClient.UnitOfMeasure
+  public static let DozenPairs: QuantumPayClient.UnitOfMeasure
+  public static let DozenPieces: QuantumPayClient.UnitOfMeasure
+  public static let DozenRolls: QuantumPayClient.UnitOfMeasure
+  public static let DrachmGB: QuantumPayClient.UnitOfMeasure
+  public static let DramGB: QuantumPayClient.UnitOfMeasure
+  public static let DramUS: QuantumPayClient.UnitOfMeasure
+  public static let DryBarrel: QuantumPayClient.UnitOfMeasure
+  public static let DryGallon: QuantumPayClient.UnitOfMeasure
+  public static let DryPint: QuantumPayClient.UnitOfMeasure
+  public static let DryQuart: QuantumPayClient.UnitOfMeasure
+  public static let Each: QuantumPayClient.UnitOfMeasure
+  public static let Farad: QuantumPayClient.UnitOfMeasure
+  public static let FluidOunce: QuantumPayClient.UnitOfMeasure
+  public static let Foot: QuantumPayClient.UnitOfMeasure
+  public static let Gallon: QuantumPayClient.UnitOfMeasure
+  public static let Gigabequerel: QuantumPayClient.UnitOfMeasure
+  public static let GigawattHour: QuantumPayClient.UnitOfMeasure
+  public static let Gill: QuantumPayClient.UnitOfMeasure
+  public static let Grain: QuantumPayClient.UnitOfMeasure
+  public static let GramOfFissileIsotopes: QuantumPayClient.UnitOfMeasure
+  public static let Gram: QuantumPayClient.UnitOfMeasure
+  public static let GreatGross: QuantumPayClient.UnitOfMeasure
+  public static let Gross: QuantumPayClient.UnitOfMeasure
+  public static let GrossTon: QuantumPayClient.UnitOfMeasure
+  public static let HalfYear: QuantumPayClient.UnitOfMeasure
+  public static let Hectare: QuantumPayClient.UnitOfMeasure
+  public static let Hectobar: QuantumPayClient.UnitOfMeasure
+  public static let Hectogram: QuantumPayClient.UnitOfMeasure
+  public static let Hectokilogram: QuantumPayClient.UnitOfMeasure
+  public static let HectolitreOfPureAlcohol: QuantumPayClient.UnitOfMeasure
+  public static let Hectolitre: QuantumPayClient.UnitOfMeasure
+  public static let Hectometre: QuantumPayClient.UnitOfMeasure
+  public static let Hertz: QuantumPayClient.UnitOfMeasure
+  public static let Hour: QuantumPayClient.UnitOfMeasure
+  public static let Hundred: QuantumPayClient.UnitOfMeasure
+  public static let HundredBoxes: QuantumPayClient.UnitOfMeasure
+  public static let HundredInternationalUnits: QuantumPayClient.UnitOfMeasure
+  public static let HundredLeaves: QuantumPayClient.UnitOfMeasure
+  public static let HundredPacks: QuantumPayClient.UnitOfMeasure
+  public static let HundredweightUS: QuantumPayClient.UnitOfMeasure
+  public static let Inch: QuantumPayClient.UnitOfMeasure
+  public static let Item: QuantumPayClient.UnitOfMeasure
+  public static let Joule: QuantumPayClient.UnitOfMeasure
+  public static let Kelvin: QuantumPayClient.UnitOfMeasure
+  public static let Kilobar: QuantumPayClient.UnitOfMeasure
+  public static let Kilogoule: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfCausticPotash: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfCausticSoda: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfNamedSubstance: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfNitrogen: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfPhosphoricAnhydride: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfPotassiumOxide: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfSubstance90Dry: QuantumPayClient.UnitOfMeasure
+  public static let KilogramOfUranium: QuantumPayClient.UnitOfMeasure
+  public static let KilogramPerCubicMeter: QuantumPayClient.UnitOfMeasure
+  public static let KilogramPerSecond: QuantumPayClient.UnitOfMeasure
+  public static let Kilogram: QuantumPayClient.UnitOfMeasure
+  public static let Kilohertz: QuantumPayClient.UnitOfMeasure
+  public static let KilometrePerHour: QuantumPayClient.UnitOfMeasure
+  public static let Kilometre: QuantumPayClient.UnitOfMeasure
+  public static let Kilopascal: QuantumPayClient.UnitOfMeasure
+  public static let Kilotonne: QuantumPayClient.UnitOfMeasure
+  public static let Kilovar: QuantumPayClient.UnitOfMeasure
+  public static let Kilovolt: QuantumPayClient.UnitOfMeasure
+  public static let KilovoltAmpere: QuantumPayClient.UnitOfMeasure
+  public static let Kilowatt: QuantumPayClient.UnitOfMeasure
+  public static let KilowattHour: QuantumPayClient.UnitOfMeasure
+  public static let Knot: QuantumPayClient.UnitOfMeasure
+  public static let Leaf: QuantumPayClient.UnitOfMeasure
+  public static let LiquidGallon: QuantumPayClient.UnitOfMeasure
+  public static let LiquidPint: QuantumPayClient.UnitOfMeasure
+  public static let LiquidQuart: QuantumPayClient.UnitOfMeasure
+  public static let Litre: QuantumPayClient.UnitOfMeasure
+  public static let LitreOfPureAlcohol: QuantumPayClient.UnitOfMeasure
+  public static let LongTon: QuantumPayClient.UnitOfMeasure
+  public static let Lumen: QuantumPayClient.UnitOfMeasure
+  public static let Lux: QuantumPayClient.UnitOfMeasure
+  public static let Megahertz: QuantumPayClient.UnitOfMeasure
+  public static let Megalitre: QuantumPayClient.UnitOfMeasure
+  public static let Megametre: QuantumPayClient.UnitOfMeasure
+  public static let Megapascal: QuantumPayClient.UnitOfMeasure
+  public static let MegavoltAmpere: QuantumPayClient.UnitOfMeasure
+  public static let Megawatt: QuantumPayClient.UnitOfMeasure
+  public static let MegawattHour: QuantumPayClient.UnitOfMeasure
+  public static let MetrePerSecondSquared: QuantumPayClient.UnitOfMeasure
+  public static let MetrePerSecond: QuantumPayClient.UnitOfMeasure
+  public static let Metre: QuantumPayClient.UnitOfMeasure
+  public static let MetricCarat: QuantumPayClient.UnitOfMeasure
+  public static let MetricTonne: QuantumPayClient.UnitOfMeasure
+  public static let Millibar: QuantumPayClient.UnitOfMeasure
+  public static let Millicurie: QuantumPayClient.UnitOfMeasure
+  public static let Milligram: QuantumPayClient.UnitOfMeasure
+  public static let Millilitre: QuantumPayClient.UnitOfMeasure
+  public static let Millimetre: QuantumPayClient.UnitOfMeasure
+  public static let Million: QuantumPayClient.UnitOfMeasure
+  public static let MillionCubicMetres: QuantumPayClient.UnitOfMeasure
+  public static let MillionInternationalUnits: QuantumPayClient.UnitOfMeasure
+  public static let Minute: QuantumPayClient.UnitOfMeasure
+  public static let Month: QuantumPayClient.UnitOfMeasure
+  public static let NauticalMile: QuantumPayClient.UnitOfMeasure
+  public static let Net: QuantumPayClient.UnitOfMeasure
+  public static let Newton: QuantumPayClient.UnitOfMeasure
+  public static let Ohm: QuantumPayClient.UnitOfMeasure
+  public static let Number: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfArticles: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfBobbins: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfCells: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfInternationalUnits: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfPacks: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfPairs: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfParcels: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfParts: QuantumPayClient.UnitOfMeasure
+  public static let NumberOfRolls: QuantumPayClient.UnitOfMeasure
+  public static let Ounce: QuantumPayClient.UnitOfMeasure
+  public static let TroyOunce: QuantumPayClient.UnitOfMeasure
+  public static let Package: QuantumPayClient.UnitOfMeasure
+  public static let Pascal: QuantumPayClient.UnitOfMeasure
+  public static let Pennyweight: QuantumPayClient.UnitOfMeasure
+  public static let Piece: QuantumPayClient.UnitOfMeasure
+  public static let Pint: QuantumPayClient.UnitOfMeasure
+  public static let Pound: QuantumPayClient.UnitOfMeasure
+  public static let Pounds: QuantumPayClient.UnitOfMeasure
+  public static let ProofGallon: QuantumPayClient.UnitOfMeasure
+  public static let Quart: QuantumPayClient.UnitOfMeasure
+  public static let Quarter: QuantumPayClient.UnitOfMeasure
+  public static let QuarterGB: QuantumPayClient.UnitOfMeasure
+  public static let RevolutionPerMinute: QuantumPayClient.UnitOfMeasure
+  public static let RevolutionPerSecond: QuantumPayClient.UnitOfMeasure
+  public static let Score: QuantumPayClient.UnitOfMeasure
+  public static let Scruple: QuantumPayClient.UnitOfMeasure
+  public static let Second: QuantumPayClient.UnitOfMeasure
+  public static let Set: QuantumPayClient.UnitOfMeasure
+  public static let ShippingTon: QuantumPayClient.UnitOfMeasure
+  public static let ShortStandard: QuantumPayClient.UnitOfMeasure
+  public static let ShortTon: QuantumPayClient.UnitOfMeasure
+  public static let Siemens: QuantumPayClient.UnitOfMeasure
+  public static let SquareCentimetre: QuantumPayClient.UnitOfMeasure
+  public static let SquareDecimetre: QuantumPayClient.UnitOfMeasure
+  public static let SquareFoot: QuantumPayClient.UnitOfMeasure
+  public static let SquareInch: QuantumPayClient.UnitOfMeasure
+  public static let SquareKilometre: QuantumPayClient.UnitOfMeasure
+  public static let SquareMetre: QuantumPayClient.UnitOfMeasure
+  public static let SquareMile: QuantumPayClient.UnitOfMeasure
+  public static let SquareMillimetre: QuantumPayClient.UnitOfMeasure
+  public static let SquareYard: QuantumPayClient.UnitOfMeasure
+  public static let Standard: QuantumPayClient.UnitOfMeasure
+  public static let StandardAtmosphere: QuantumPayClient.UnitOfMeasure
+  public static let StatuteMile: QuantumPayClient.UnitOfMeasure
+  public static let StoneGB: QuantumPayClient.UnitOfMeasure
+  public static let TechnicalAtmosphere: QuantumPayClient.UnitOfMeasure
+  public static let TenDays: QuantumPayClient.UnitOfMeasure
+  public static let TenPairs: QuantumPayClient.UnitOfMeasure
+  public static let Thousand: QuantumPayClient.UnitOfMeasure
+  public static let ThousandAmpereHour: QuantumPayClient.UnitOfMeasure
+  public static let ThousandBoardFeet: QuantumPayClient.UnitOfMeasure
+  public static let ThousandCubicMetresPerDay: QuantumPayClient.UnitOfMeasure
+  public static let ThousandStandardBrickEquivalent: QuantumPayClient.UnitOfMeasure
+  public static let TonOfSteamPerHour: QuantumPayClient.UnitOfMeasure
+  public static let TonneOfSubstance90Dry: QuantumPayClient.UnitOfMeasure
+  public static let TrillionEUR: QuantumPayClient.UnitOfMeasure
+  public static let TroyPoundUS: QuantumPayClient.UnitOfMeasure
+  public static let UnknownUnitOfMeasure: QuantumPayClient.UnitOfMeasure
+  public static let Volt: QuantumPayClient.UnitOfMeasure
+  public static let Watt: QuantumPayClient.UnitOfMeasure
+  public static let WattHour: QuantumPayClient.UnitOfMeasure
+  public static let Weber: QuantumPayClient.UnitOfMeasure
+  public static let Week: QuantumPayClient.UnitOfMeasure
+  public static let Yard: QuantumPayClient.UnitOfMeasure
+  public static let Year: QuantumPayClient.UnitOfMeasure
+  public static let allUnitsOfMeasure: [QuantumPayClient.UnitOfMeasure]
+  public static func getUnitOfMeasure(code: Swift.String) -> QuantumPayClient.UnitOfMeasure?
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc deinit
+}
+public class InvoiceItemBuilder : QuantumPayClient.IBuilder {
+  public init()
+  public init(productCode: Swift.String?, productDescription: Swift.String?, saleCode: QuantumPayClient.SaleCode?, quantity: Swift.Int, unitOfMeasure: QuantumPayClient.UnitOfMeasure = .Each, unitPrice: Foundation.Decimal, taxIncludedInPrice: Swift.Bool, net: Foundation.Decimal, tax: Foundation.Decimal, discount: Foundation.Decimal, gross: Foundation.Decimal)
+  public func build() throws -> QuantumPayClient.InvoiceItem
+  public func productCode(_ productCode: Swift.String) -> QuantumPayClient.InvoiceItemBuilder
+  public func productDescription(_ description: Swift.String) -> QuantumPayClient.InvoiceItemBuilder
+  public func saleCode(_ saleCode: QuantumPayClient.SaleCode) -> QuantumPayClient.InvoiceItemBuilder
+  public func unitOfMeasureCode(_ unitOfMeasureCode: QuantumPayClient.UnitOfMeasure) -> QuantumPayClient.InvoiceItemBuilder
+  public func quantity(_ quantity: Swift.Int) -> QuantumPayClient.InvoiceItemBuilder
+  public func unitPrice(_ unitPrice: Foundation.Decimal) -> QuantumPayClient.InvoiceItemBuilder
+  public func setNetTotal(_ netTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceItemBuilder
+  public func setTaxTotal(_ taxTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceItemBuilder
+  public func setDiscountTotal(_ discountTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceItemBuilder
+  public func setGrossTotal(_ grossTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceItemBuilder
+  public func calculateTotals(calculateNet: Swift.Bool = true, calculateGross: Swift.Bool = true) -> QuantumPayClient.InvoiceItemBuilder
+  public typealias T = QuantumPayClient.InvoiceItem
+  @objc deinit
+}
+public enum TransactionException : Swift.Error {
+  case noTransactionFound
+  case transactionInProgress(Swift.String)
+  case missingPaymentPeripheral
+  case failedToUpload(Swift.String)
+}
+extension QuantumPayClient.TransactionException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class InvoiceBuilder : QuantumPayClient.IBuilder {
+  public typealias T = QuantumPayClient.Invoice
+  public init(invoiceReference: Swift.String, companyName: Swift.String?, purchaseOrderReference: Swift.String?, net: Foundation.Decimal = 0, tax: Foundation.Decimal = 0, discount: Foundation.Decimal = 0, tip: Foundation.Decimal = 0, gross: Foundation.Decimal = 0)
+  public func build() throws -> QuantumPayClient.Invoice
+  public func purchaseOrderReference(reference: Swift.String) -> QuantumPayClient.InvoiceBuilder
+  public func companyName(companyName: Swift.String) -> QuantumPayClient.InvoiceBuilder
+  public func addItem(itemBuilder: (_ x: QuantumPayClient.InvoiceItemBuilder) -> QuantumPayClient.InvoiceItemBuilder) -> QuantumPayClient.InvoiceBuilder
+  public func addItem(productCode: Swift.String, description: Swift.String, unitPrice: Foundation.Decimal) -> QuantumPayClient.InvoiceBuilder
+  public func addItem(item: QuantumPayClient.InvoiceItem) -> QuantumPayClient.InvoiceBuilder
+  public func setNetTotal(netTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceBuilder
+  public func setTaxTotal(taxTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceBuilder
+  public func setDiscountTotal(discountTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceBuilder
+  public func setGrossTotal(grossTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceBuilder
+  public func setTipTotal(tipTotal: Foundation.Decimal) -> QuantumPayClient.InvoiceBuilder
+  public func calculateTotals(calculateNet: Swift.Bool = true, calculateDiscount: Swift.Bool = true, calculateTax: Swift.Bool = true, calculateGross: Swift.Bool = true) -> QuantumPayClient.InvoiceBuilder
+  @objc deinit
+}
+public enum TransactionResultStatus : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case none
+  case approved
+  case declined
+  case failed
+  case offlineApproved
+  case offlineDeclined
+  case uploaded
+  case uploadFailed
+  case void
+  case tryAnotherInterface
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func stringValue() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.TransactionResultStatus]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.TransactionResultStatus] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum TransactionFallbackReason : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case none
+  case brand
+  case technical
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.TransactionFallbackReason]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.TransactionFallbackReason] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum TransactionValidationStatus : Swift.String, Swift.CaseIterable, Swift.Codable {
+  case notValidated
+  case passed
+  case expired
+  case missingKSN
+  case missingTracks
+  case missingData
+  case invalidData
+  case onlineAuthorizationRequired
+  case binNotAccepted
+  case signatureRejected
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [QuantumPayClient.TransactionValidationStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [QuantumPayClient.TransactionValidationStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum Exceptions : Swift.Error {
+  case missingRequiredValue(Swift.String?)
+  case error(Swift.String?)
+}
+extension QuantumPayClient.Exceptions : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class EmvTag {
+  public static let RecogniseCardSupportedOptions: QuantumPayClient.Binary
+  public static let AsciiCodeTableIndex: QuantumPayClient.Binary
+  public static let BrandTable: QuantumPayClient.Binary
+  public static let BrandTableChipFlag: QuantumPayClient.Binary
+  public static let BrandId: QuantumPayClient.Binary
+  public static let ApplicationSelectionIndicator: QuantumPayClient.Binary
+  public static let BrandAccepted: QuantumPayClient.Binary
+  public static let AidTableDomesticFlag: QuantumPayClient.Binary
+  public static let NextIndexIfPos: QuantumPayClient.Binary
+  public static let NextIndexIfNeg: QuantumPayClient.Binary
+  public static let AidTable: QuantumPayClient.Binary
+  public static let PosEntryMode: QuantumPayClient.Binary
+  public static let TerminalApplicationVersionNumber: QuantumPayClient.Binary
+  public static let DefaultDdol: QuantumPayClient.Binary
+  public static let TacDenial: QuantumPayClient.Binary
+  public static let TacOnline: QuantumPayClient.Binary
+  public static let TacDefault: QuantumPayClient.Binary
+  public static let TerminalFloorLimit: QuantumPayClient.Binary
+  public static let TargetPercentage: QuantumPayClient.Binary
+  public static let MaxTargetPercentage: QuantumPayClient.Binary
+  public static let ThresholdValue: QuantumPayClient.Binary
+  public static let FinalSelectInitiateTx: QuantumPayClient.Binary
+  public static let TransactionCurrencyCode: QuantumPayClient.Binary
+  public static let TerminalCountryCode: QuantumPayClient.Binary
+  public static let TransactionCurrencyExponent: QuantumPayClient.Binary
+  public static let MerchantId: QuantumPayClient.Binary
+  public static let MerchantCategoryCode: QuantumPayClient.Binary
+  public static let TerminalId: QuantumPayClient.Binary
+  public static let TerminalCapabilities: QuantumPayClient.Binary
+  public static let AdditionalTerminalCapabilities: QuantumPayClient.Binary
+  public static let TerminalType: QuantumPayClient.Binary
+  public static let ApplicationId: QuantumPayClient.Binary
+  public static let TransactionDate: QuantumPayClient.Binary
+  public static let TransactionTime: QuantumPayClient.Binary
+  public static let TransactionAmount: QuantumPayClient.Binary
+  public static let OfflineTotalAmount: QuantumPayClient.Binary
+  public static let TransactionType: QuantumPayClient.Binary
+  public static let TransactionGroup: QuantumPayClient.Binary
+  public static let TableRecord: QuantumPayClient.Binary
+  public static let CaPublicKeyModulus: QuantumPayClient.Binary
+  public static let CaPublicKeyExponent: QuantumPayClient.Binary
+  public static let TransactionSequenceCounter: QuantumPayClient.Binary
+  public static let AmountAuthorized: QuantumPayClient.Binary
+  public static let AmountOther: QuantumPayClient.Binary
+  public static let ApplicationInterchangeProfile: QuantumPayClient.Binary
+  public static let ApplicationTransactionCounter: QuantumPayClient.Binary
+  public static let ApplicationCryptogram: QuantumPayClient.Binary
+  public static let IssuerApplicationData: QuantumPayClient.Binary
+  public static let TerminalCurrencyCode: QuantumPayClient.Binary
+  public static let TerminalSerialNumber: QuantumPayClient.Binary
+  public static let UnpredictableNumber: QuantumPayClient.Binary
+  public static let CvmResults: QuantumPayClient.Binary
+  public static let CryptogramInformationData: QuantumPayClient.Binary
+  public static let HostIncidentCode: QuantumPayClient.Binary
+  public static let IssuerAuthenticationData: QuantumPayClient.Binary
+  public static let IssuerScriptTermplate1: QuantumPayClient.Binary
+  public static let IssuerScriptTermplate2: QuantumPayClient.Binary
+  public static let ApplicationLabel: QuantumPayClient.Binary
+  public static let DedicatedFileName: QuantumPayClient.Binary
+  public static let ApplicationPriorityIndicator: QuantumPayClient.Binary
+  public static let CaPublicKeyIndex: QuantumPayClient.Binary
+  public static let Track1EquivalentData: QuantumPayClient.Binary
+  public static let Track2EquivalentData: QuantumPayClient.Binary
+  public static let CardHolderName: QuantumPayClient.Binary
+  public static let Track1DiscretionaryData: QuantumPayClient.Binary
+  public static let Track2DiscretionaryData: QuantumPayClient.Binary
+  public static let CardExpiry: QuantumPayClient.Binary
+  public static let IssuerCountryCode: QuantumPayClient.Binary
+  public static let PanSequenceNumber: QuantumPayClient.Binary
+  public static let Pan: QuantumPayClient.Binary
+  public static let AuthorizationResponseCode: QuantumPayClient.Binary
+  public static let TerminalVerificationResults: QuantumPayClient.Binary
+  public static let Tsi: QuantumPayClient.Binary
+  public static let CvmList: QuantumPayClient.Binary
+  public static let ApplicationCurrencyCode: QuantumPayClient.Binary
+  public static let TransactionCategoryCode: QuantumPayClient.Binary
+  public static let FciTemplate: QuantumPayClient.Binary
+  public static let FciProprietaryTemplate: QuantumPayClient.Binary
+  public static let Afl: QuantumPayClient.Binary
+  public static let ApplicationEffectiveDate: QuantumPayClient.Binary
+  public static let Pdol: QuantumPayClient.Binary
+  public static let Cdol1: QuantumPayClient.Binary
+  public static let Cdol2: QuantumPayClient.Binary
+  public static let ApplicationUsageControl: QuantumPayClient.Binary
+  public static let CardApplicationVersionNumber: QuantumPayClient.Binary
+  public static let ApplicationSelectionRegisteredProprietaryData: QuantumPayClient.Binary
+  public static let IacDefault: QuantumPayClient.Binary
+  public static let IacDenial: QuantumPayClient.Binary
+  public static let IacOnline: QuantumPayClient.Binary
+  public static let SdaTagList: QuantumPayClient.Binary
+  public static let IssuerPublicKeyExponent: QuantumPayClient.Binary
+  public static let IssuerPublicKeyRemainder: QuantumPayClient.Binary
+  public static let IssuerPublicKeyCertificate: QuantumPayClient.Binary
+  public static let IccPublicKeyExponent: QuantumPayClient.Binary
+  public static let IccPublicKeyRemainder: QuantumPayClient.Binary
+  public static let IccPinEnciphermentPublicKey: QuantumPayClient.Binary
+  public static let IccPinEnciphermentPublicKeyExponent: QuantumPayClient.Binary
+  public static let IccPinEnciphermentPublicKeyModulus: QuantumPayClient.Binary
+  public static let SignedDynamicApplicationData: QuantumPayClient.Binary
+  public static let ResponseTemplate: QuantumPayClient.Binary
+  public static let PinTryCounter: QuantumPayClient.Binary
+  public static let SignedStaticApplicationData: QuantumPayClient.Binary
+  public static let IccPublicKeyCertificate: QuantumPayClient.Binary
+  public static let DataAuthenticationCode: QuantumPayClient.Binary
+  public static let IccDynamicNumber: QuantumPayClient.Binary
+  public static let ResponseTemplate2: QuantumPayClient.Binary
+  public static let FciDiscretionaryData: QuantumPayClient.Binary
+  public static let ServiceCode: QuantumPayClient.Binary
+  public static let LanguagePreference: QuantumPayClient.Binary
+  public static let IssuerCodeTableIndex: QuantumPayClient.Binary
+  public static let ApplicationPreferredName: QuantumPayClient.Binary
+  public static let ApplicationCurrencyExponent: QuantumPayClient.Binary
+  public static let ApplicationReferenceCurrency: QuantumPayClient.Binary
+  public static let ApplicationReferenceCurrencyExponent: QuantumPayClient.Binary
+  public static let Ddol: QuantumPayClient.Binary
+  public static let NonTlvResponseTemplate: QuantumPayClient.Binary
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class RegisterResultIQData : Swift.Codable {
+  public var companyCode: Swift.String? {
+    get
+  }
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class Tenant : ObjectiveC.NSObject {
+  @objc public var hostKey: Swift.String {
+    get
+  }
+  @objc public var tenantKey: Swift.String {
+    get
+  }
+  @objc public init(hostKey: Swift.String, tenantKey: Swift.String)
+  @objc deinit
+}
+public class TransactionBatch : Swift.Codable {
+  public var count: Swift.Int {
+    get
+  }
+  public var transactions: [QuantumPayClient.Transaction] {
+    get
+  }
+  public var storeAndForward: Swift.Bool {
+    get
+    set
+  }
+  public init(transactions: [QuantumPayClient.Transaction]) throws
+  public init(transaction: QuantumPayClient.Transaction)
+  public var respondWithResults: Swift.Bool {
+    get
+    set
+  }
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public class PaymentConfigurationProfile : Swift.Decodable {
+  public var format: QuantumPayClient.PaymentConfigurationProfileFormat?
+  public var data: QuantumPayClient.JSONValue?
+  required public init(from decoder: Swift.Decoder) throws
+  public func getVersionNumber() -> Swift.Int
+  public func getEmvTlv() -> QuantumPayClient.EmvTlvList
+  @objc deinit
+}
+public typealias EmvTlvList = Swift.Array<QuantumPayClient.EmvTlv>
+extension Swift.Array where Element : QuantumPayClient.EmvTlv {
+  public var tlv: QuantumPayClient.Binary {
+    get
+  }
+  public static func parse(data: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlvList
+  public func findFirst(findTag: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlv?
+  public func findAll(findTag: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlvList
+}
+public typealias IRegisterResultCallback = (_ result: QuantumPayClient.ApiResponse<QuantumPayClient.RegisterResult>?) throws -> Swift.Void
+@_hasMissingDesignatedInitializers public class Receipt : Swift.Codable {
+  public var type: Swift.String
+  public var content: Swift.String
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public protocol IBuilder {
+  associatedtype T
+  func build() throws -> Self.T
+}
+public class Decision : Swift.Codable {
+  public var ID: Swift.String {
+    get
+  }
+  public var transactionDateTime: Foundation.Date {
+    get
+  }
+  public var properties: QuantumPayClient.DecisionData {
+    get
+  }
+  public init(transactionID: Swift.String, emvData: Foundation.Data)
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class DecisionData : Swift.Codable {
+  public var emv: Foundation.Data {
+    get
+  }
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public class TransactionDeviceData : Swift.Codable {
+  public var serial: Swift.String
+  public var type: Swift.String
+  public var capabilities: [QuantumPayClient.PeripheralCapability]
+  public var firmwareVersion: Swift.String
+  public var hardwareVersion: Swift.String
+  public init(serial: Swift.String, type: Swift.String, capabilities: [QuantumPayClient.PeripheralCapability], firmware: Swift.String, hardware: Swift.String)
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public typealias IDeregisterResponseCallback = (_ response: QuantumPayClient.DeregisterResponse?) -> Swift.Void
+public class Binary {
+  public var data: Foundation.Data {
+    get
+    set
+  }
+  public var hex: Swift.String {
+    get
+    set
+  }
+  public var ascii: Swift.String {
+    get
+    set
+  }
+  public var integer: Swift.Int {
+    get
+    set
+  }
+  public var length: Swift.Int {
+    get
+  }
+  public init(string: Swift.String)
+  public init(int: Swift.Int)
+  public init(data: Foundation.Data)
+  public init(bytes: [Swift.UInt8])
+  public func equals(value: QuantumPayClient.Binary?) -> Swift.Bool
+  public func getHashCode() -> Swift.Int
+  public static func == (lhs: QuantumPayClient.Binary, rhs: QuantumPayClient.Binary) -> Swift.Bool
+  public static func != (lhs: QuantumPayClient.Binary, rhs: QuantumPayClient.Binary) -> Swift.Bool
+  @objc deinit
+}
+public class TransactionBuilder : QuantumPayClient.IBuilder {
+  public init(posID: Swift.String, capabilities: [QuantumPayClient.PeripheralCapability], invoice: QuantumPayClient.Invoice?)
+  public init(posID: Swift.String, capabilities: [QuantumPayClient.PeripheralCapability], invoice: QuantumPayClient.Invoice?, transactionID: Swift.String, transactionDateTime: Foundation.Date, transactionType: QuantumPayClient.TransactionType, transactionReference: Swift.String?, transactionAmount: Foundation.Decimal, currency: QuantumPayClient.Currency, metaData: [Swift.String : Swift.String]?, service: Swift.String?, secureFormat: QuantumPayClient.SecureFormat?)
+  public func build() throws -> QuantumPayClient.Transaction
+  public func capabilities(_ capabilities: [QuantumPayClient.PeripheralCapability]) throws -> QuantumPayClient.TransactionBuilder
+  public func fallBackReason(_ reason: QuantumPayClient.TransactionFallbackReason) -> QuantumPayClient.TransactionBuilder
+  public func customerEmailAddress(_ email: Swift.String) -> QuantumPayClient.TransactionBuilder
+  public func invoice(_ invoice: QuantumPayClient.Invoice) -> QuantumPayClient.TransactionBuilder
+  public func amount(_ amount: Foundation.Decimal, currency: QuantumPayClient.Currency) -> QuantumPayClient.TransactionBuilder
+  public func reference(_ reference: Swift.String) -> QuantumPayClient.TransactionBuilder
+  public func dateTime(_ dateTime: Foundation.Date) -> QuantumPayClient.TransactionBuilder
+  public func sale() -> QuantumPayClient.TransactionBuilder
+  public func refund(transactionId: Swift.String) -> QuantumPayClient.TransactionBuilder
+  public func auth() -> QuantumPayClient.TransactionBuilder
+  public func capture(transactionId: Swift.String) -> QuantumPayClient.TransactionBuilder
+  public func void(transactionId: Swift.String) -> QuantumPayClient.TransactionBuilder
+  public func undo(transactionId: Swift.String) -> QuantumPayClient.TransactionBuilder
+  public func metaData(_ metaData: [Swift.String : Swift.String]) -> QuantumPayClient.TransactionBuilder
+  public func service(_ service: Swift.String) -> QuantumPayClient.TransactionBuilder
+  public func secureFormat(_ secureFormat: QuantumPayClient.SecureFormat) -> QuantumPayClient.TransactionBuilder
+  public typealias T = QuantumPayClient.Transaction
+  @objc deinit
+}
+public class PeripheralRegistrationData : Swift.Codable {
+  public var serialNumber: Swift.String
+  public var type: Swift.String
+  public var capabilities: [QuantumPayClient.PeripheralCapability]?
+  public var parameters: QuantumPayClient.PeripheralRegistrationDataParameters?
+  required public init(from decoder: Swift.Decoder) throws
+  public init(serialNumber: Swift.String, type: Swift.String, capabilities: [QuantumPayClient.PeripheralCapability])
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@_hasMissingDesignatedInitializers public class PeripheralRegistrationDataParameters : Swift.Codable {
+  public var location: Swift.String?
+  public var terminalID: Swift.String?
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public class RegisterResult : Swift.Codable {
+  public var key: Swift.String? {
+    get
+  }
+  public var type: Swift.String? {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var capabilities: [QuantumPayClient.PeripheralCapability] {
+    get
+  }
+  public var parameters: QuantumPayClient.PeripheralRegistrationDataParameters? {
+    get
+  }
+  public var IQ: QuantumPayClient.RegisterResultIQData? {
+    get
+  }
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+public enum LoggingLevel : Swift.Int {
+  case error
+  case warning
+  case info
+  case debug
+  case verbose
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+indirect public enum JSONValue : Swift.Decodable {
+  case double(Swift.Double)
+  case string(Swift.String)
+  case bool(Swift.Bool)
+  case dictionary([Swift.String : QuantumPayClient.JSONValue])
+  case array([QuantumPayClient.JSONValue])
+  case `nil`
+  public init(from decoder: Swift.Decoder) throws
+}
+extension QuantumPayClient.JSONValue {
+  public var string: Swift.String? {
+    get
+  }
+  public var double: Swift.Double? {
+    get
+  }
+  public var bool: Swift.Bool? {
+    get
+  }
+  public var dictionary: [Swift.String : QuantumPayClient.JSONValue]? {
+    get
+  }
+  public var array: [QuantumPayClient.JSONValue]? {
+    get
+  }
+  public var isNil: Swift.Bool {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers open class ApiResponse<TData> : Swift.Codable where TData : Swift.Decodable, TData : Swift.Encodable {
+  public var summary: QuantumPayClient.ApiResponseSummary? {
+    get
+  }
+  public var errors: [QuantumPayClient.ApiResponseError]? {
+    get
+  }
+  public var warnings: [QuantumPayClient.ApiResponseError]? {
+    get
+  }
+  public var results: [TData]? {
+    get
+  }
+  @objc deinit
+  open func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class InMemoryAuthTokenStorage : QuantumPayClient.IAuthTokenStorage {
+  public class func shared() -> QuantumPayClient.InMemoryAuthTokenStorage
+  public func getTokenAsync(username: Swift.String, callback: QuantumPayClient.IGetAuthTokenStorageCallback?)
+  public func saveTokenAsync(token: QuantumPayClient.AuthToken, callback: QuantumPayClient.ISaveAuthTokenCallback?)
+  public func deleteTokenAsync(username: Swift.String, callback: QuantumPayClient.IDeleteAuthTokenCallback?)
+  @objc deinit
+}
+public typealias IGetAuthTokenStorageCallback = (QuantumPayClient.AuthToken?, Swift.Error?) -> Swift.Void
+public class TransactionReceipt : Swift.Codable {
+  public var merchantReceiptUrl: Swift.String
+  public var customerReceiptUrl: Swift.String
+  public init(merchantReceiptUrl: Swift.String, customerReceiptUrl: Swift.String)
+  public init(server: QuantumPayClient.ServerEnvironment, transaction: QuantumPayClient.Transaction)
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc @objcMembers open class UserCredentials : ObjectiveC.NSObject {
+  @objc public init(username: Swift.String, password: Swift.String)
+  @objc public class func empty() -> QuantumPayClient.UserCredentials
+  @objc deinit
+}
+public class SystemLogger : QuantumPayClient.ILogger {
+  public var level: QuantumPayClient.LoggingLevel
+  public init()
+  public init(storeDays: Swift.Int)
+  public func error(exception: Foundation.NSException, message: Swift.String)
+  public func error(message: Swift.String)
+  public func warning(message: Swift.String)
+  public func info(message: Swift.String)
+  public func debug(message: Swift.String)
+  public func verbose(message: Swift.String)
+  @objc deinit
+}
+public enum EmvAuthorizationResponseCode : Swift.Int, Swift.CaseIterable {
+  case onlineApproved
+  case onlineDeclined
+  case unableToGoOnlineApproved
+  case unableToGoOnlineDeclined
+  case offlineApproved
+  case offlineDeclined
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.EmvAuthorizationResponseCode]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.EmvAuthorizationResponseCode] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum PaymentConfigurationProfileFormat : Swift.Int, Swift.Decodable {
+  case defaultFormat
+  case tlv
+  public init(from decoder: Swift.Decoder) throws
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class NoOpLogger : ObjectiveC.NSObject, QuantumPayClient.ILogger {
+  public var level: QuantumPayClient.LoggingLevel
+  @objc public func error(exception: Foundation.NSException, message: Swift.String)
+  @objc public func error(message: Swift.String)
+  @objc public func warning(message: Swift.String)
+  @objc public func info(message: Swift.String)
+  @objc public func debug(message: Swift.String)
+  @objc public func verbose(message: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TransactionData : Swift.Codable {
+  public var source: QuantumPayClient.TransactionSource
+  public var result: QuantumPayClient.TransactionResultStatus
+  public var failureReason: QuantumPayClient.TransactionFailureReason
+  public var validationStatus: QuantumPayClient.TransactionValidationStatus
+  public var emv: Foundation.Data?
+  public var emvEncrypted: Foundation.Data?
+  public var ksn: Foundation.Data?
+  public var tracks: Foundation.Data?
+  public var track1: Foundation.Data?
+  public var track1Len: Swift.Int
+  public var track1Hash: Foundation.Data?
+  public var track2: Foundation.Data?
+  public var track2Len: Swift.Int
+  public var track2Hash: Foundation.Data?
+  public var track3: Swift.String?
+  public var secureFormat: QuantumPayClient.SecureFormat
+  public var scheme: QuantumPayClient.CardScheme
+  public var expiryDateMonth: Swift.String?
+  public var expiryDateYear: Swift.String?
+  public var maskedPAN: Swift.String?
+  public var cardholderName: Swift.String?
+  public var serviceCode: Swift.String?
+  public var pinVerified: Swift.Bool
+  public var signature: Foundation.Data?
+  public var bin: Swift.String? {
+    get
+  }
+  public var last4Digits: Swift.String? {
+    get
+  }
+  public func validate(type: QuantumPayClient.TransactionType, isOnline: Swift.Bool) -> QuantumPayClient.TransactionValidationStatus
+  public func encode(to encoder: Swift.Encoder) throws
+  @objc deinit
+  required public init(from decoder: Swift.Decoder) throws
+}
+public typealias ISaveAuthTokenCallback = () -> Swift.Void
+public class EmvTlv {
+  public var tag: QuantumPayClient.Binary {
+    get
+  }
+  public var length: Swift.Int {
+    get
+  }
+  public var value: QuantumPayClient.Binary {
+    get
+  }
+  public var children: QuantumPayClient.EmvTlvList {
+    get
+  }
+  public var tlv: QuantumPayClient.Binary {
+    get
+  }
+  public init(tag: QuantumPayClient.Binary, length: Swift.Int)
+  public init(tag: QuantumPayClient.Binary, value: QuantumPayClient.Binary)
+  public func findFirst(_ findTag: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlv?
+  public func findAll(_ findTag: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlvList
+  public func getLengthData() -> QuantumPayClient.Binary
+  public class func parse(data: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlvList
+  @objc deinit
+}
+public enum EmvConfigurationKey : Swift.String, Swift.CaseIterable {
+  case contact
+  case contactCAPK
+  case contactless
+  case contactlessCAPK
+  public func capitalized() -> Swift.String
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [QuantumPayClient.EmvConfigurationKey]
+  public typealias RawValue = Swift.String
+  public static var allCases: [QuantumPayClient.EmvConfigurationKey] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum SecureFormat : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case defaultFormat
+  case idTech
+  case magtek
+  case transArmor
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func stringValue() -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.SecureFormat]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.SecureFormat] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum PeripheralCapability : Swift.Int, Swift.CaseIterable, Swift.Codable {
+  case unknown
+  case cardMagStripe
+  case cardContactless
+  case cardChip
+  case pinEntryKeypad
+  case pinEntryOnScreen
+  case display
+  case printer
+  case barcodeReader
+  public static let paymentCapabilities: [QuantumPayClient.PeripheralCapability]
+  public static let allPeripheralCapabilities: [QuantumPayClient.PeripheralCapability]
+  public func stringValue() -> Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [QuantumPayClient.PeripheralCapability]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [QuantumPayClient.PeripheralCapability] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension QuantumPayClient.PeripheralCapability {
+  public static func isPaymentCapability(_ capabilities: [QuantumPayClient.PeripheralCapability]) -> Swift.Bool
+}
+public protocol IAuthTokenStorage {
+  func getTokenAsync(username: Swift.String, callback: QuantumPayClient.IGetAuthTokenStorageCallback?)
+  func saveTokenAsync(token: QuantumPayClient.AuthToken, callback: QuantumPayClient.ISaveAuthTokenCallback?)
+  func deleteTokenAsync(username: Swift.String, callback: QuantumPayClient.IDeleteAuthTokenCallback?)
+}
+public class CardClient {
+  public init(serverConfiguration: QuantumPayClient.ServerEnvironment, userCredentials: QuantumPayClient.UserCredentials, tokenStorage: QuantumPayClient.IAuthTokenStorage?, logger: QuantumPayClient.ILogger?)
+  public func submitTransactionsAsync(batch: QuantumPayClient.TransactionBatch, callback: ((QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) throws -> Swift.Void)?) rethrows
+  public func submitTransactionAsync(transaction: QuantumPayClient.Transaction, callback: ((QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) throws -> Swift.Void)?) rethrows
+  public func submitFinalDecision(decision: QuantumPayClient.Decision, callback: ((QuantumPayClient.ApiResponse<QuantumPayClient.TransactionResultResponse>?) throws -> Swift.Void)?) rethrows
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class EmvTagParser {
+  public static let shared: QuantumPayClient.EmvTagParser
+  public class func parseDol(rawDol: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlvList
+  public class func parseTlv(rawTlv: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlv
+  public class func parseTlvList(rawTlv: QuantumPayClient.Binary) -> QuantumPayClient.EmvTlvList
+  @objc deinit
+}
+extension Foundation.Date {
+  public func toString() -> Swift.String
+}
+extension Swift.String {
+  public func substring(startIndex: Swift.Int, endIndex: Swift.Int) -> Swift.String
+  public func substring(startIndex: Swift.Int, length: Swift.Int) -> Swift.String
+  public func substring(startIndex: Swift.Int) -> Swift.String
+}
+@_hasMissingDesignatedInitializers open class ApiResponseSummary : Swift.Codable {
+  public var submitted: Swift.Int {
+    get
+  }
+  public var processed: Swift.Int {
+    get
+  }
+  public var successful: Swift.Int {
+    get
+  }
+  public var errors: Swift.Int {
+    get
+  }
+  public var warnings: Swift.Int {
+    get
+  }
+  public var count: Swift.Int {
+    get
+  }
+  public var updated: Swift.Int {
+    get
+  }
+  public var deleted: Swift.Int {
+    get
+  }
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  open func encode(to encoder: Swift.Encoder) throws
+}
+public protocol IPeripheralData {
+  func getCompanyCode() -> Swift.String?
+}
+extension QuantumPayClient.TransactionSource : Swift.Equatable {}
+extension QuantumPayClient.TransactionSource : Swift.Hashable {}
+extension QuantumPayClient.TransactionSource : Swift.RawRepresentable {}
+extension QuantumPayClient.TransactionType : Swift.Equatable {}
+extension QuantumPayClient.TransactionType : Swift.Hashable {}
+extension QuantumPayClient.TransactionType : Swift.RawRepresentable {}
+extension QuantumPayClient.TransactionFailureReason : Swift.Equatable {}
+extension QuantumPayClient.TransactionFailureReason : Swift.Hashable {}
+extension QuantumPayClient.TransactionFailureReason : Swift.RawRepresentable {}
+extension QuantumPayClient.SaleCode : Swift.Equatable {}
+extension QuantumPayClient.SaleCode : Swift.Hashable {}
+extension QuantumPayClient.SaleCode : Swift.RawRepresentable {}
+extension QuantumPayClient.CardScheme : Swift.Equatable {}
+extension QuantumPayClient.CardScheme : Swift.Hashable {}
+extension QuantumPayClient.CardScheme : Swift.RawRepresentable {}
+extension QuantumPayClient.TransactionResultStatus : Swift.Equatable {}
+extension QuantumPayClient.TransactionResultStatus : Swift.Hashable {}
+extension QuantumPayClient.TransactionResultStatus : Swift.RawRepresentable {}
+extension QuantumPayClient.TransactionFallbackReason : Swift.Equatable {}
+extension QuantumPayClient.TransactionFallbackReason : Swift.Hashable {}
+extension QuantumPayClient.TransactionFallbackReason : Swift.RawRepresentable {}
+extension QuantumPayClient.TransactionValidationStatus : Swift.Equatable {}
+extension QuantumPayClient.TransactionValidationStatus : Swift.Hashable {}
+extension QuantumPayClient.TransactionValidationStatus : Swift.RawRepresentable {}
+extension QuantumPayClient.LoggingLevel : Swift.Equatable {}
+extension QuantumPayClient.LoggingLevel : Swift.Hashable {}
+extension QuantumPayClient.LoggingLevel : Swift.RawRepresentable {}
+extension QuantumPayClient.EmvAuthorizationResponseCode : Swift.Equatable {}
+extension QuantumPayClient.EmvAuthorizationResponseCode : Swift.Hashable {}
+extension QuantumPayClient.EmvAuthorizationResponseCode : Swift.RawRepresentable {}
+extension QuantumPayClient.PaymentConfigurationProfileFormat : Swift.Equatable {}
+extension QuantumPayClient.PaymentConfigurationProfileFormat : Swift.Hashable {}
+extension QuantumPayClient.PaymentConfigurationProfileFormat : Swift.RawRepresentable {}
+extension QuantumPayClient.EmvConfigurationKey : Swift.Equatable {}
+extension QuantumPayClient.EmvConfigurationKey : Swift.Hashable {}
+extension QuantumPayClient.EmvConfigurationKey : Swift.RawRepresentable {}
+extension QuantumPayClient.SecureFormat : Swift.Equatable {}
+extension QuantumPayClient.SecureFormat : Swift.Hashable {}
+extension QuantumPayClient.SecureFormat : Swift.RawRepresentable {}
+extension QuantumPayClient.PeripheralCapability : Swift.Equatable {}
+extension QuantumPayClient.PeripheralCapability : Swift.Hashable {}
+extension QuantumPayClient.PeripheralCapability : Swift.RawRepresentable {}

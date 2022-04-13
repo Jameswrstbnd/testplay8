@@ -1,0 +1,11 @@
+framework module QuantumPayClient {
+  umbrella header "QuantumPayClient.h"
+
+  export *
+  module * { export * }
+}
+
+module QuantumPayClient.Swift {
+    header "QuantumPayClient-Swift.h"
+    requires objc
+}

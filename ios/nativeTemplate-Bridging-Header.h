@@ -5,3 +5,5 @@
 #import "AppDelegate.h"
 #import "MendixNative/MendixNative.h"
 #import "SplashScreenPresenter.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>

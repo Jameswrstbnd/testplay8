@@ -1,0 +1,217 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+// swift-module-flags: -target x86_64-apple-ios12.1-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name QuantumPayPeripheral
+import Foundation
+import QuantumPayClient
+import QuantumPayMobile
+@_exported import QuantumPayPeripheral
+import QuantumSDK
+import Swift
+import _Concurrency
+@_inheritsConvenienceInitializers public class QPC250 : QuantumPayPeripheral.InfinitePeripheralsDevice {
+  public static let displayName: Swift.String
+  override public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override public var availableCapabilities: [QuantumPayClient.PeripheralCapability]! {
+    get
+    set
+  }
+  override public var name: Swift.String! {
+    get
+    set
+  }
+  override public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class QPR250 : QuantumPayPeripheral.InfinitePeripheralsBluetoothLeDevice {
+  public static let displayName: Swift.String
+  override public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override public var availableCapabilities: [QuantumPayClient.PeripheralCapability]! {
+    get
+    set
+  }
+  override public var name: Swift.String! {
+    get
+    set
+  }
+  override public init()
+  public init(serial: Swift.String)
+  @objc deinit
+}
+public enum PeripheralException : Swift.Error {
+  case unsupportedPeripheral(Swift.String?)
+  case connectError(Swift.String?)
+  case disconnectError(Swift.String?)
+}
+extension QuantumPayPeripheral.PeripheralException : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_inheritsConvenienceInitializers final public class QPC150 : QuantumPayPeripheral.InfinitePeripheralsDevice {
+  public static let displayName: Swift.String
+  override final public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override final public var availableCapabilities: [QuantumPayClient.PeripheralCapability]! {
+    get
+    set
+  }
+  override final public var name: Swift.String! {
+    get
+    set
+  }
+  override public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @objcMembers public class InfinitePeripherals : ObjectiveC.NSObject {
+  @objc public class func initialize(developerKey: Swift.String = "", tenant: QuantumPayClient.Tenant)
+  public class func requiresPairingSerialNumber(device: QuantumPayPeripheral.InfinitePeripheralsDevice) -> Swift.Bool
+  public class func getConnectionType(device: QuantumPayPeripheral.InfinitePeripheralsDevice) -> QuantumPayMobile.ConnectionType
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class InfinitePeripheralsDevice : QuantumPayMobile.IPaymentPeripheral {
+  public var device: QuantumSDK.IPCDTDevices
+  public var decisionProvider: QuantumPayMobile.IPaymentDecisionProvider?
+  public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  public var connectionStateHandler: QuantumPayMobile.ConnectionStateHandler?
+  public var transactionStateHandler: QuantumPayMobile.TransactionStateHandler?
+  public var peripheralStateHandler: QuantumPayMobile.PeripheralStateHandler?
+  public var peripheralMessageHandler: QuantumPayMobile.PeripheralMessageHandler?
+  public var availableCapabilities: [QuantumPayClient.PeripheralCapability]?
+  public var enabledCapabilities: [QuantumPayClient.PeripheralCapability]?
+  public var configuration: QuantumPayMobile.ConfigurationProvider?
+  public var registrationData: QuantumPayClient.PeripheralRegistrationData?
+  public var peripheralState: QuantumPayMobile.PeripheralState {
+    get
+  }
+  public var logger: QuantumPayClient.ILogger?
+  public var serialNumber: Swift.String {
+    get
+  }
+  public var deviceType: Swift.String {
+    get
+  }
+  public var firmwareVersion: Swift.String {
+    get
+  }
+  public var hardwareVersion: Swift.String {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var connectionState: QuantumPayMobile.ConnectionState {
+    get
+  }
+  public var batteryPercentage: Swift.Int {
+    get
+  }
+  public init()
+  @objc deinit
+  public func destroy()
+  public func connect(handler: QuantumPayMobile.ConnectionStateHandler?)
+  public func disconnect()
+  public func getDeviceData() -> QuantumPayClient.TransactionDeviceData
+  public func getSoftwareData() -> QuantumPayClient.TransactionSoftwareData
+  public func startTransaction(transaction: QuantumPayClient.Transaction, timeout: Foundation.TimeInterval) -> Swift.Bool
+  public func getEmvConfigurationVersionNumbers() -> [QuantumPayClient.EmvConfigurationKey : Swift.Int]
+  public func setIdleTimeout(timeout: Foundation.TimeInterval) -> Swift.Bool
+  public func stopActiveTransaction() throws
+}
+extension QuantumPayPeripheral.InfinitePeripheralsDevice : QuantumSDK.IPCDTDeviceDelegate {
+  @objc dynamic public func connectionState(_ state: Swift.Int32, type deviceType: QuantumSDK.SUPPORTED_DEVICE_TYPES)
+  @objc dynamic public func emv2(onOnlineProcessing data: Foundation.Data!)
+  @objc dynamic public func emv2(onTransactionFinished data: Foundation.Data!)
+  @objc dynamic public func emv2(onUserInterfaceCode code: Swift.Int32, status: Swift.Int32, holdTime: Foundation.TimeInterval)
+  @objc dynamic public func emv2(onApplicationSelection applicationTags: Foundation.Data!)
+  @objc dynamic public func emv2CardEvent(onInterface interface: Swift.Int32, event: Swift.Int32)
+}
+@_hasMissingDesignatedInitializers public class QPP450 : QuantumPayPeripheral.InfinitePeripheralsBluetoothLeDevice {
+  public static let displayName: Swift.String
+  override public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override public var availableCapabilities: [QuantumPayClient.PeripheralCapability]! {
+    get
+    set
+  }
+  override public var name: Swift.String! {
+    get
+    set
+  }
+  override public init()
+  public init(serial: Swift.String)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class QPP400 : QuantumPayPeripheral.InfinitePeripheralsBluetoothLeDevice {
+  public static let displayName: Swift.String
+  override public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override public var availableCapabilities: [QuantumPayClient.PeripheralCapability]! {
+    get
+    set
+  }
+  override public var name: Swift.String! {
+    get
+    set
+  }
+  override public init()
+  public init(serial: Swift.String)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class InfinitePeripheralsBluetoothLeDevice : QuantumPayPeripheral.InfinitePeripheralsDevice {
+  override public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override public init()
+  override public func connect(handler: QuantumPayMobile.ConnectionStateHandler?)
+  public func discoverDevicesAsync(callback: @escaping ([QuantumPayMobile.BluetoothLePeripheral<CoreBluetooth.CBPeripheral>]) -> Swift.Void)
+  public func discoverDevices() -> [QuantumPayMobile.BluetoothLePeripheral<CoreBluetooth.CBPeripheral>]?
+  override public func disconnect()
+  @objc deinit
+}
+extension QuantumPayPeripheral.InfinitePeripheralsBluetoothLeDevice {
+  @objc dynamic public func bluetoothLEDeviceConnected(_ device: CoreBluetooth.CBPeripheral!)
+}
+@_hasMissingDesignatedInitializers public class QPP401 : QuantumPayPeripheral.InfinitePeripheralsBluetoothLeDevice {
+  public static let displayName: Swift.String
+  override public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override public var availableCapabilities: [QuantumPayClient.PeripheralCapability]! {
+    get
+    set
+  }
+  override public var name: Swift.String! {
+    get
+    set
+  }
+  override public init()
+  public init(serial: Swift.String)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class QPR300 : QuantumPayPeripheral.InfinitePeripheralsBluetoothLeDevice {
+  public static let displayName: Swift.String
+  override public var connectionType: QuantumPayMobile.ConnectionType {
+    get
+  }
+  override public var availableCapabilities: [QuantumPayClient.PeripheralCapability]! {
+    get
+    set
+  }
+  override public var name: Swift.String! {
+    get
+    set
+  }
+  override public init()
+  public init(serial: Swift.String)
+  @objc deinit
+}

@@ -1,0 +1,11 @@
+framework module QuantumPayMobile {
+  umbrella header "QuantumPayMobile.h"
+
+  export *
+  module * { export * }
+}
+
+module QuantumPayMobile.Swift {
+    header "QuantumPayMobile-Swift.h"
+    requires objc
+}
