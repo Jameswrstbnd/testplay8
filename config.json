@@ -1,6 +1,6 @@
 {
     "configVersion": 2,
-    "appIdentifier": "myapp.qpc250react",
+    "appIdentifier": "com.wrstbndqpc.developerapp",
     "appName": "QPC250React",
     "bundleName": {
         "main": "QPC250React",
