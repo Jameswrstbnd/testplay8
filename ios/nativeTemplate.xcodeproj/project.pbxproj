@@ -799,7 +799,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "myapp.qpc250react-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrstbndqpc.developerapp;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				SWIFT_INCLUDE_PATHS = "$(inherited) ${SRCROOT}/MendixNative";
 				SWIFT_OBJC_BRIDGING_HEADER = "nativeTemplate-Bridging-Header.h";
@@ -878,7 +878,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "myapp.qpc250react-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrstbndqpc.developerapp;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "$(inherited) ${PROJECT_DIR} ${SRCROOT}/MendixNative";
@@ -1108,7 +1108,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "myapp.qpc250react-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wrstbndqpc.developerapp;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_INCLUDE_PATHS = "$(inherited) ${PROJECT_DIR} ${SRCROOT}/MendixNative";
