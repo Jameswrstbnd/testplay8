@@ -36,20 +36,28 @@
 		2C887FDB24B88A0E0003DC53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C887FD924B88A0E0003DC53 /* LaunchScreen.storyboard */; };
 		2C887FE224B8948F0003DC53 /* StoryBoardSplash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887FE124B8948F0003DC53 /* StoryBoardSplash.m */; };
 		2C887FE324B8948F0003DC53 /* StoryBoardSplash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C887FE124B8948F0003DC53 /* StoryBoardSplash.m */; };
-		451DFCF3280736F900793562 /* QuantumPayPeripheral.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; };
-		451DFCF4280736F900793562 /* QuantumPayPeripheral.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; };
-		451DFCF5280736F900793562 /* QuantumPayClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF0280736F800793562 /* QuantumPayClient.xcframework */; };
-		451DFCF6280736F900793562 /* QuantumPayClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF0280736F800793562 /* QuantumPayClient.xcframework */; };
-		451DFCF7280736F900793562 /* QuantumPayMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF1280736F800793562 /* QuantumPayMobile.xcframework */; };
-		451DFCF8280736F900793562 /* QuantumPayMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF1280736F800793562 /* QuantumPayMobile.xcframework */; };
-		451DFCF9280736F900793562 /* QuantumSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; };
-		451DFCFA280736F900793562 /* QuantumSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; };
 		451DFCFD280738CA00793562 /* PaymentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DFCFC280738CA00793562 /* PaymentConfig.swift */; };
 		451DFCFE280738CA00793562 /* PaymentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DFCFC280738CA00793562 /* PaymentConfig.swift */; };
 		451DFD00280738D800793562 /* QPCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DFCFF280738D800793562 /* QPCConfig.swift */; };
 		451DFD01280738D800793562 /* QPCConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DFCFF280738D800793562 /* QPCConfig.swift */; };
 		451DFD03280738E400793562 /* QPCConfigBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 451DFD02280738E400793562 /* QPCConfigBridge.m */; };
 		451DFD04280738E400793562 /* QPCConfigBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 451DFD02280738E400793562 /* QPCConfigBridge.m */; };
+		452E23102810712A00890917 /* QuantumPayClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF0280736F800793562 /* QuantumPayClient.xcframework */; };
+		452E23112810712A00890917 /* QuantumPayClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF0280736F800793562 /* QuantumPayClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452E23132810712C00890917 /* QuantumPayMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF1280736F800793562 /* QuantumPayMobile.xcframework */; };
+		452E23142810712C00890917 /* QuantumPayMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF1280736F800793562 /* QuantumPayMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452E23152810712E00890917 /* QuantumPayPeripheral.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; };
+		452E23162810712E00890917 /* QuantumPayPeripheral.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452E23172810712F00890917 /* QuantumSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; };
+		452E23182810712F00890917 /* QuantumSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452E23192810713F00890917 /* QuantumPayClient.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF0280736F800793562 /* QuantumPayClient.xcframework */; };
+		452E231A2810713F00890917 /* QuantumPayClient.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF0280736F800793562 /* QuantumPayClient.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452E231C2810714000890917 /* QuantumPayMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF1280736F800793562 /* QuantumPayMobile.xcframework */; };
+		452E231D2810714000890917 /* QuantumPayMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF1280736F800793562 /* QuantumPayMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452E231E2810714200890917 /* QuantumPayPeripheral.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; };
+		452E231F2810714200890917 /* QuantumPayPeripheral.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		452E23202810714300890917 /* QuantumSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; };
+		452E23212810714300890917 /* QuantumSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DF4091425A46A56E2A9A405 /* libPods-nativeTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F36AC2CCD37CCD4E7B1BB8 /* libPods-nativeTemplate.a */; };
 		B28D6DAD97033B55832E5853 /* libPods-dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11502903429AC2E6E69E6482 /* libPods-dev.a */; };
 		DF6591BE26650DF3006E3A5E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6591BD26650DF3006E3A5E /* AppDelegate.m */; };
@@ -59,6 +67,37 @@
 		EB59215C23BFA1F5001D6155 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EB59215A23BFA1F5001D6155 /* main.m */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		452E23122810712A00890917 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				452E23142810712C00890917 /* QuantumPayMobile.xcframework in Embed Frameworks */,
+				452E23162810712E00890917 /* QuantumPayPeripheral.xcframework in Embed Frameworks */,
+				452E23182810712F00890917 /* QuantumSDK.xcframework in Embed Frameworks */,
+				452E23112810712A00890917 /* QuantumPayClient.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		452E231B2810713F00890917 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				452E231D2810714000890917 /* QuantumPayMobile.xcframework in Embed Frameworks */,
+				452E231F2810714200890917 /* QuantumPayPeripheral.xcframework in Embed Frameworks */,
+				452E23212810714300890917 /* QuantumSDK.xcframework in Embed Frameworks */,
+				452E231A2810713F00890917 /* QuantumPayClient.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11502903429AC2E6E69E6482 /* libPods-dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,12 +182,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				451DFCF5280736F900793562 /* QuantumPayClient.xcframework in Frameworks */,
-				451DFCF3280736F900793562 /* QuantumPayPeripheral.xcframework in Frameworks */,
-				451DFCF9280736F900793562 /* QuantumSDK.xcframework in Frameworks */,
-				451DFCF7280736F900793562 /* QuantumPayMobile.xcframework in Frameworks */,
+				452E23152810712E00890917 /* QuantumPayPeripheral.xcframework in Frameworks */,
 				2C704C88269D78EB0049B13C /* libMendix.a in Frameworks */,
+				452E23172810712F00890917 /* QuantumSDK.xcframework in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
+				452E23102810712A00890917 /* QuantumPayClient.xcframework in Frameworks */,
+				452E23132810712C00890917 /* QuantumPayMobile.xcframework in Frameworks */,
 				9DF4091425A46A56E2A9A405 /* libPods-nativeTemplate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,12 +196,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				451DFCF6280736F900793562 /* QuantumPayClient.xcframework in Frameworks */,
-				451DFCF4280736F900793562 /* QuantumPayPeripheral.xcframework in Frameworks */,
-				451DFCFA280736F900793562 /* QuantumSDK.xcframework in Frameworks */,
-				451DFCF8280736F900793562 /* QuantumPayMobile.xcframework in Frameworks */,
+				452E231E2810714200890917 /* QuantumPayPeripheral.xcframework in Frameworks */,
 				2C704C89269D78EB0049B13C /* libMendix.a in Frameworks */,
+				452E23202810714300890917 /* QuantumSDK.xcframework in Frameworks */,
 				1A0B3AB92397DA6800388BF7 /* JavaScriptCore.framework in Frameworks */,
+				452E23192810713F00890917 /* QuantumPayClient.xcframework in Frameworks */,
+				452E231C2810714000890917 /* QuantumPayMobile.xcframework in Frameworks */,
 				B28D6DAD97033B55832E5853 /* libPods-dev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +411,7 @@
 				E76B33B54A5C7944CC054730 /* [CP] Copy Pods Resources */,
 				C171C7EB581899B1919413BD /* [CP-User] [RNFB] Core Configuration */,
 				B86DC36E6D431CA122098F77 /* [CP] Embed Pods Frameworks */,
+				452E23122810712A00890917 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -393,6 +433,7 @@
 				5248E8502EF2589755F92828 /* [CP] Copy Pods Resources */,
 				806E9FF5E8793EDBC39961EF /* [CP-User] [RNFB] Core Configuration */,
 				D23B73856C8F196ABA90A515 /* [CP] Embed Pods Frameworks */,
+				452E231B2810713F00890917 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1053,7 +1094,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 396JWA5HXJ;
 				ENABLE_BITCODE = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
