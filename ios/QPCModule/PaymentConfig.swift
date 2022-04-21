@@ -14,7 +14,7 @@ import QuantumPayPeripheral
 @objcMembers
 public class PaymentConfig: NSObject {
     // Developer key that works with this bundle ID: "com.ipc.QPayObjC"
-    public static let developerKey = "me0MkvJWFrdVJn13Hi1Fs83jAQuQgw3XkT1ADdSJN6/jhUDznf69UtGgLZniia1Gqorkl/8s/3y1gYYd8WlX+A=="
+    public static let developerKey = "vSpVLHzYL3eBE4gEW5tbwPkMw1TKQREyVJg+qmVy5ADAXl0jWSVBuNR+V9s26rKgRlmByse7IWs6ghTTDHfaRw=="
 
     // ******* Create a payment device **********
     // Attached device. Serial will be collecting directly from the device
