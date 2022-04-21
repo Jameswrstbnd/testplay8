@@ -8,7 +8,7 @@
     },
     "deviceTarget": {
         "phone": true,
-        "tablet": false
+        "tablet": true
     },
     "orientation": {
         "portrait": true,
