@@ -212,7 +212,6 @@
 		13B07FAE1A68108700A75B9A /* NativeTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				451DFCFB280738B500793562 /* QPCModule */,
 				1A0B83DA22E09B2500EA1E51 /* Bundle */,
 				EBC80A5F22DF41DD007E5F3D /* Config */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -305,6 +304,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				451DFCFB280738B500793562 /* QPCModule */,
 				13B07FAE1A68108700A75B9A /* NativeTemplate */,
 				1A0B3A932397DA2300388BF7 /* Dev */,
 				83CBBA001A601CBA00E9B192 /* Products */,
