@@ -58,6 +58,7 @@
 		452E231F2810714200890917 /* QuantumPayPeripheral.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		452E23202810714300890917 /* QuantumSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; };
 		452E23212810714300890917 /* QuantumSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45787C072817A16A004E0CE7 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45787C062817A16A004E0CE7 /* ExternalAccessory.framework */; };
 		9DF4091425A46A56E2A9A405 /* libPods-nativeTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F36AC2CCD37CCD4E7B1BB8 /* libPods-nativeTemplate.a */; };
 		B28D6DAD97033B55832E5853 /* libPods-dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11502903429AC2E6E69E6482 /* libPods-dev.a */; };
 		DF6591BE26650DF3006E3A5E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6591BD26650DF3006E3A5E /* AppDelegate.m */; };
@@ -157,6 +158,7 @@
 		451DFCFC280738CA00793562 /* PaymentConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentConfig.swift; sourceTree = "<group>"; };
 		451DFCFF280738D800793562 /* QPCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QPCConfig.swift; sourceTree = "<group>"; };
 		451DFD02280738E400793562 /* QPCConfigBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCConfigBridge.m; sourceTree = "<group>"; };
+		45787C062817A16A004E0CE7 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		4D55DFFF6D52DC368FE13A23 /* Pods-nativeTemplate.releasedevapp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nativeTemplate.releasedevapp.xcconfig"; path = "Target Support Files/Pods-nativeTemplate/Pods-nativeTemplate.releasedevapp.xcconfig"; sourceTree = "<group>"; };
 		64F8A8A81DAAF68662AD5926 /* Pods-nativeTemplate.releasedevapp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nativeTemplate.releasedevapp.xcconfig"; path = "Target Support Files/Pods-nativeTemplate/Pods-nativeTemplate.releasedevapp.xcconfig"; sourceTree = "<group>"; };
 		6ABE4BDB54D431090249D8EC /* Pods-dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dev.release.xcconfig"; path = "Target Support Files/Pods-dev/Pods-dev.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
 				452E23102810712A00890917 /* QuantumPayClient.xcframework in Frameworks */,
 				452E23132810712C00890917 /* QuantumPayMobile.xcframework in Frameworks */,
+				45787C072817A16A004E0CE7 /* ExternalAccessory.framework in Frameworks */,
 				9DF4091425A46A56E2A9A405 /* libPods-nativeTemplate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +282,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45787C062817A16A004E0CE7 /* ExternalAccessory.framework */,
 				451DFCF0280736F800793562 /* QuantumPayClient.xcframework */,
 				451DFCF1280736F800793562 /* QuantumPayMobile.xcframework */,
 				451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */,
@@ -776,6 +780,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = nativeTemplate/nativeTemplate.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
@@ -858,6 +863,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = nativeTemplate/nativeTemplate.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 396JWA5HXJ;
@@ -1091,8 +1097,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = nativeTemplate/nativeTemplate.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 396JWA5HXJ;
 				ENABLE_BITCODE = "$(inherited)";
@@ -1157,7 +1163,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wrstbndqpc.developerapp;
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "QPC Mendix";
 				SWIFT_INCLUDE_PATHS = "$(inherited) ${PROJECT_DIR} ${SRCROOT}/MendixNative";
 				SWIFT_OBJC_BRIDGING_HEADER = "nativeTemplate-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
