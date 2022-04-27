@@ -37,6 +37,11 @@ RCT_EXTERN_METHOD(addText:(NSString *)txtDescription)
 RCT_EXTERN_METHOD(startNewTransaction:(NSString *)amount:(NSString *)companyName:(NSString *)referenceNumber:(NSString*)productCode:(NSString*)unitPrice:(NSString *)invoiceDescription:(NSString *)productDescription:(NSString *)quantity:(NSString *)invoiceNumber)
 
 
+// RFID
+
+RCT_EXTERN_METHOD(connecRFID)
+
+
 + (BOOL)requiresMainQueueSetup
 {
   return YES;

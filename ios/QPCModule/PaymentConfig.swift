@@ -74,8 +74,6 @@ public class PaymentConfig: NSObject {
   public static let transactionEmpty:String = "transactionEmpty"
   public static let transactionUploadingError:String = "transactionUploadingError"
 
-
-  
   // Start Engine handlers
   public static let engineCreated:String = "engineCreated"
   public static let engineConnectedState:String = "engineConnectedState"
@@ -88,4 +86,10 @@ public class PaymentConfig: NSObject {
   public static let errorEVM: String = "errorEVM"
   public static let errorTransaction:String = "errorTransaction"
 
+  
+  // RFID
+  public static let RFIDConnectionState: String = "RFIDConnection"
+  public static let magneticCardEncryptedData:String = "magneticCardEncryptedData"
+  public static let magneticCardData:String = "magneticCardData"
+  
 }

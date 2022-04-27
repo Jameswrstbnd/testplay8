@@ -58,6 +58,8 @@
 		452E231F2810714200890917 /* QuantumPayPeripheral.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCEF280736F800793562 /* QuantumPayPeripheral.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		452E23202810714300890917 /* QuantumSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; };
 		452E23212810714300890917 /* QuantumSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		454C6BE3281959BF00A5CFC6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454C6BE2281959BF00A5CFC6 /* Utils.swift */; };
+		454C6BE4281959BF00A5CFC6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454C6BE2281959BF00A5CFC6 /* Utils.swift */; };
 		45787C072817A16A004E0CE7 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45787C062817A16A004E0CE7 /* ExternalAccessory.framework */; };
 		9DF4091425A46A56E2A9A405 /* libPods-nativeTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F36AC2CCD37CCD4E7B1BB8 /* libPods-nativeTemplate.a */; };
 		B28D6DAD97033B55832E5853 /* libPods-dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11502903429AC2E6E69E6482 /* libPods-dev.a */; };
@@ -158,6 +160,7 @@
 		451DFCFC280738CA00793562 /* PaymentConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentConfig.swift; sourceTree = "<group>"; };
 		451DFCFF280738D800793562 /* QPCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QPCConfig.swift; sourceTree = "<group>"; };
 		451DFD02280738E400793562 /* QPCConfigBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCConfigBridge.m; sourceTree = "<group>"; };
+		454C6BE2281959BF00A5CFC6 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		45787C062817A16A004E0CE7 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		4D55DFFF6D52DC368FE13A23 /* Pods-nativeTemplate.releasedevapp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nativeTemplate.releasedevapp.xcconfig"; path = "Target Support Files/Pods-nativeTemplate/Pods-nativeTemplate.releasedevapp.xcconfig"; sourceTree = "<group>"; };
 		64F8A8A81DAAF68662AD5926 /* Pods-nativeTemplate.releasedevapp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nativeTemplate.releasedevapp.xcconfig"; path = "Target Support Files/Pods-nativeTemplate/Pods-nativeTemplate.releasedevapp.xcconfig"; sourceTree = "<group>"; };
@@ -298,6 +301,7 @@
 		451DFCFB280738B500793562 /* QPCModule */ = {
 			isa = PBXGroup;
 			children = (
+				454C6BE2281959BF00A5CFC6 /* Utils.swift */,
 				451DFD02280738E400793562 /* QPCConfigBridge.m */,
 				451DFCFC280738CA00793562 /* PaymentConfig.swift */,
 				451DFCFF280738D800793562 /* QPCConfig.swift */,
@@ -730,6 +734,7 @@
 				451DFCFD280738CA00793562 /* PaymentConfig.swift in Sources */,
 				2C887F7224B7BFFE0003DC53 /* SplashScreenPresenter.m in Sources */,
 				451DFD00280738D800793562 /* QPCConfig.swift in Sources */,
+				454C6BE3281959BF00A5CFC6 /* Utils.swift in Sources */,
 				2C4991D124C593C3008403BB /* MendixAppDelegate.m in Sources */,
 				451DFD03280738E400793562 /* QPCConfigBridge.m in Sources */,
 				1AAE158923C5FEFC00F855F4 /* SwiftInterop.swift in Sources */,
@@ -748,6 +753,7 @@
 				451DFD01280738D800793562 /* QPCConfig.swift in Sources */,
 				2C887F7324B7BFFE0003DC53 /* SplashScreenPresenter.m in Sources */,
 				451DFD04280738E400793562 /* QPCConfigBridge.m in Sources */,
+				454C6BE4281959BF00A5CFC6 /* Utils.swift in Sources */,
 				451DFCFE280738CA00793562 /* PaymentConfig.swift in Sources */,
 				1A0B3AE02397F38300388BF7 /* QRMaskView.swift in Sources */,
 				DF6591BE26650DF3006E3A5E /* AppDelegate.m in Sources */,
