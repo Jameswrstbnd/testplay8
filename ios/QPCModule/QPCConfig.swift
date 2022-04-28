@@ -25,7 +25,7 @@
     
     var paymentDevice: QuantumPayPeripheral.InfinitePeripheralsDevice!
 
-    let rfidScanner=IPCDTDevices.sharedDevice() as IPCDTDevices
+    var rfidScanner=IPCDTDevices.sharedDevice() as IPCDTDevices
 
     
     
@@ -63,8 +63,10 @@
         // Initialize QuantumPay
         InfinitePeripherals.initialize(developerKey: PaymentConfig.developerKey, tenant: Tenant(hostKey: PaymentConfig.hostKey, tenantKey: PaymentConfig.tenantKey))
         
+        self.rfidScanner = IPCDTDevices.sharedDevice()
+        self.rfidScanner.addDelegate(self)
           // Initialize payment device
-        self.paymentDevice = QPC250()
+       // self.paymentDevice = QPC250()
       }
     }
 
