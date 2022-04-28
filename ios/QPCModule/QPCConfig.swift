@@ -163,7 +163,7 @@
     }
     
     @objc(connectRFID)
-    func connecRFID() -> Void{
+    func connectRFID() -> Void{
       rfidScanner.addDelegate(self)
       rfidScanner.connect()
     }
