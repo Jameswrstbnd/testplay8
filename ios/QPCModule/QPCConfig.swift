@@ -25,7 +25,7 @@
     
     var paymentDevice: QuantumPayPeripheral.InfinitePeripheralsDevice!
 
-    var rfidScanner=IPCDTDevices.sharedDevice() as IPCDTDevices
+   // let rfidScanner=IPCDTDevices.sharedDevice() as IPCDTDevices
 
     
     
@@ -63,10 +63,8 @@
         // Initialize QuantumPay
         InfinitePeripherals.initialize(developerKey: PaymentConfig.developerKey, tenant: Tenant(hostKey: PaymentConfig.hostKey, tenantKey: PaymentConfig.tenantKey))
         
-        self.rfidScanner = IPCDTDevices.sharedDevice()
-        self.rfidScanner.addDelegate(self)
           // Initialize payment device
-       // self.paymentDevice = QPC250()
+        self.paymentDevice = QPC250()
       }
     }
 
@@ -166,8 +164,8 @@
     
     @objc(connectRFID)
     func connectRFID() -> Void{
-      rfidScanner.addDelegate(self)
-      rfidScanner.connect()
+//      rfidScanner.addDelegate(self)
+//      rfidScanner.connect()
     }
     
     //Connect to payment engine
@@ -580,7 +578,7 @@
     //MARK: DTDevices notifications
         
         //sent when supported device connects or disconnects. always wait for this message or check connstate before attempting communication. calling connect function does not mean that the device will be connected on the next line
-        func connectionState(_ state: Int32) {
+/*        func connectionState(_ state: Int32) {
             var info="SDK: ver \(rfidScanner.sdkVersion/100).\(String.init(format: "%02d", rfidScanner.sdkVersion%100)) \(DateFormatter.localizedString(from: rfidScanner.sdkBuildDate, dateStyle: DateFormatter.Style.medium, timeStyle: DateFormatter.Style.none))\n"
             
             do
@@ -719,7 +717,7 @@
       self.sendEvent(withName: PaymentConfig.magneticCardData, body: status)
 
        // self.showMessage("Card Data", message: status)
-    }
+    }*/
  
 
   }
