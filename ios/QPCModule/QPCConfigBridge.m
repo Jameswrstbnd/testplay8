@@ -9,8 +9,14 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTEventEmitter.h>
 
+
+@interface RCT_EXTERN_REMAP_MODULE(RNQPCRfidController,QPCRFID, RCTEventEmitter)
+
+@end
+
 @interface RCT_EXTERN_REMAP_MODULE(RNQPCPaymentController,QPCConfig, RCTEventEmitter)
 
+//
 /// ** A payment transaction flow
 /// 1. Create PaymentEngine and connect to payment device.
 /// 2. Setup callbacks to see transaction progress

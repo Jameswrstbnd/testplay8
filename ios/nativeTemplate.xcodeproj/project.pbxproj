@@ -60,6 +60,8 @@
 		452E23212810714300890917 /* QuantumSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451DFCF2280736F900793562 /* QuantumSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		454C6BE3281959BF00A5CFC6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454C6BE2281959BF00A5CFC6 /* Utils.swift */; };
 		454C6BE4281959BF00A5CFC6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454C6BE2281959BF00A5CFC6 /* Utils.swift */; };
+		454E29F0281E22ED00749E3C /* QPCRFID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454E29EF281E22ED00749E3C /* QPCRFID.swift */; };
+		454E29F1281E22ED00749E3C /* QPCRFID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454E29EF281E22ED00749E3C /* QPCRFID.swift */; };
 		45787C072817A16A004E0CE7 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45787C062817A16A004E0CE7 /* ExternalAccessory.framework */; };
 		9DF4091425A46A56E2A9A405 /* libPods-nativeTemplate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F36AC2CCD37CCD4E7B1BB8 /* libPods-nativeTemplate.a */; };
 		B28D6DAD97033B55832E5853 /* libPods-dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11502903429AC2E6E69E6482 /* libPods-dev.a */; };
@@ -161,6 +163,7 @@
 		451DFCFF280738D800793562 /* QPCConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QPCConfig.swift; sourceTree = "<group>"; };
 		451DFD02280738E400793562 /* QPCConfigBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCConfigBridge.m; sourceTree = "<group>"; };
 		454C6BE2281959BF00A5CFC6 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		454E29EF281E22ED00749E3C /* QPCRFID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPCRFID.swift; sourceTree = "<group>"; };
 		45787C062817A16A004E0CE7 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		4D55DFFF6D52DC368FE13A23 /* Pods-nativeTemplate.releasedevapp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nativeTemplate.releasedevapp.xcconfig"; path = "Target Support Files/Pods-nativeTemplate/Pods-nativeTemplate.releasedevapp.xcconfig"; sourceTree = "<group>"; };
 		64F8A8A81DAAF68662AD5926 /* Pods-nativeTemplate.releasedevapp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nativeTemplate.releasedevapp.xcconfig"; path = "Target Support Files/Pods-nativeTemplate/Pods-nativeTemplate.releasedevapp.xcconfig"; sourceTree = "<group>"; };
@@ -305,6 +308,7 @@
 				451DFD02280738E400793562 /* QPCConfigBridge.m */,
 				451DFCFC280738CA00793562 /* PaymentConfig.swift */,
 				451DFCFF280738D800793562 /* QPCConfig.swift */,
+				454E29EF281E22ED00749E3C /* QPCRFID.swift */,
 			);
 			path = QPCModule;
 			sourceTree = "<group>";
@@ -739,6 +743,7 @@
 				451DFD03280738E400793562 /* QPCConfigBridge.m in Sources */,
 				1AAE158923C5FEFC00F855F4 /* SwiftInterop.swift in Sources */,
 				EB55E08A23BF7FF700E3FB34 /* AppDelegate.m in Sources */,
+				454E29F0281E22ED00749E3C /* QPCRFID.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,6 +754,7 @@
 				1A0B3AE22397FBF600388BF7 /* MendixReactWindowExtensions.swift in Sources */,
 				2C887FE324B8948F0003DC53 /* StoryBoardSplash.m in Sources */,
 				1A0B3AD52397E16900388BF7 /* MendixAppViewController.swift in Sources */,
+				454E29F1281E22ED00749E3C /* QPCRFID.swift in Sources */,
 				1A0B3ADE2397F36300388BF7 /* QRView.swift in Sources */,
 				451DFD01280738D800793562 /* QPCConfig.swift in Sources */,
 				2C887F7324B7BFFE0003DC53 /* SplashScreenPresenter.m in Sources */,
