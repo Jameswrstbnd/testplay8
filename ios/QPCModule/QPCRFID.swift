@@ -12,12 +12,18 @@ import QuantumSDK
 @objc(QPCRFID)
 class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
 
-   var rfidScanner=IPCDTDevices.sharedDevice() as IPCDTDevices
+   var rfidScanner=IPCDTDevices.sharedDevice()!
 
   @objc(requiresMainQueueSetup)
   override static func requiresMainQueueSetup() -> Bool {
     return true;
   }
+  
+  // we need to override this method and
+    // return an array of event names that we can listen to
+    override func supportedEvents() -> [String]! {
+      return [PaymentConfig.RFIDMessage, PaymentConfig.RFIDError, PaymentConfig.RFIDConnectionState,PaymentConfig.RFIDCardDetected]
+    }
   
   
   @objc(initalizeRFID)
@@ -32,6 +38,112 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     rfidScanner.connect()
   }
    
+  @objc(scanRFID)
+  func scanRFID() -> Void{
+      
+    do {
+        try rfidScanner.rfInit(CARD_SUPPORT_PICOPASS_ISO15|CARD_SUPPORT_TYPE_A|CARD_SUPPORT_TYPE_B|CARD_SUPPORT_ISO15|CARD_SUPPORT_FELICA)
+        //tvInfo.text="Put RF card in the field..."
+      sendEvent(withName: PaymentConfig.RFIDMessage, body:PaymentConfig.RFIDMessage)
+
+      //RFIDMessage
+        
+    } catch {
+        //self.showError("RF Module init failed", error: error as NSError?)
+      sendEvent(withName: PaymentConfig.RFIDError, body:error.localizedDescription)
+
+    }
+  }
+  
+  func connectionState(_ state: Int32) {
+
+      
+    sendEvent(withName: PaymentConfig.RFIDConnectionState, body:"RFID Device connected")
+
+      if state==CONN_STATES.CONNECTED.rawValue
+      {
+          if rfidScanner.getSupportedFeature(FEATURES.FEAT_PRINTING, error: nil) != FEAT_UNSUPPORTED {
+             // tabs.append(getViewController(name: "Print"))
+          }
+          if rfidScanner.getSupportedFeature(FEATURES.FEAT_MSR, error: nil) != FEAT_UNSUPPORTED || rfidScanner.getSupportedFeature(FEATURES.FEAT_PIN_ENTRY, error: nil)
+              == FEAT_UNSUPPORTED {
+              //tabs.append(getViewController(name: "Crypto"))
+          }
+          if rfidScanner.getSupportedFeature(FEATURES.FEAT_EMVL2_KERNEL, error: nil) != FEAT_UNSUPPORTED {
+              //tabs.append(getViewController(name: "EMV"))
+             // tabs.append(getViewController(name: "EMVMS"))
+          }
+          if rfidScanner.getSupportedFeature(FEATURES.FEAT_RF_READER, error: nil) != FEAT_UNSUPPORTED {
+             // tabs.append(getViewController(name: "RF"))
+          }
+
+          do {
+              try setAlgorithm(lib: rfidScanner)
+          } catch {
+          }
+      }
+      
+  }
+  
+   func getSelectedAlgorithm() -> (Int32, Int32, [AnyHashable: Any]) {
+      var params : [AnyHashable: Any] = [:]
+      var keyID: Int32 = -1 //if -1, automatically selects the first available key for the specified algorithm
+
+      var algorithm: Int32 = ALG_EH_IDTECH
+
+      let prefs = UserDefaults.standard;
+      if prefs.value(forKey: "Algorithm") != nil {
+          algorithm = Int32(prefs.integer(forKey: "Algorithm"))
+      }
+
+      if(algorithm==ALG_EH_VOLTAGE)
+      {
+          params["encryption"] = "SPE"
+          params["merchantID"] = "0123456"
+      }
+      if(algorithm==ALG_EH_IDTECH)
+      {//Just a demo how to select key
+          keyID = 0
+      }
+      if(algorithm==ALG_EH_MAGTEK)
+      {//Just a demo how to select key
+          keyID = KEY_EH_DUKPT_MASTER1
+      }
+      if(algorithm==ALG_EH_AES128)
+      {//Just a demo how to select key
+          keyID = KEY_EH_AES128_ENCRYPTION1
+      }
+      if(algorithm==ALG_EH_AES256)
+      {//Just a demo how to select key
+          keyID = KEY_EH_AES256_ENCRYPTION1
+      }
+      if(algorithm==ALG_PPAD_DUKPT)
+      {//Just a demo how to select key, in the pinpad, the dukpt keys are between 0 and 7
+          keyID = 0
+      }
+      if(algorithm==ALG_PPAD_3DES_CBC)
+      {//Just a demo how to select key, in the pinpad, the 3des keys are from 1 to 49, key 1 is automatically selected if you pass 0
+          //the key loaded needs to be data encryption 3des type, or card will not read. Assuming such is loaded on position 2:
+          keyID = 2
+      }
+      if(algorithm==ALG_EH_IDTECH_AES128)
+      {//Just a demo how to select key
+          keyID = KEY_EH_DUKPT_MASTER1
+      }
+      if(algorithm==ALG_EH_MAGTEK_AES128)
+      {//Just a demo how to select key
+          keyID = KEY_EH_DUKPT_MASTER1
+      }
+
+      return (algorithm, keyID, params)
+  }
+  
+   func setAlgorithm(lib: IPCDTDevices) throws {
+
+      let (algorithm, keyID, params) = getSelectedAlgorithm()
+
+      try lib.emsrSetEncryption(algorithm, keyID:keyID, params: params as [AnyHashable: AnyObject])
+  }
   
   //#define CHECK_RESULT(description,result) if(result){[log appendFormat:@"%@: SUCCESS\n",description]; NSLog(@"%@: SUCCESS",description);} else {[log appendFormat:@"%@: FAILED (%@)\n",description,error.localizedDescription]; NSLog(@"%@: FAILED (%@)\n",description,error.localizedDescription); }
 
@@ -187,9 +299,13 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     //  Progress.show(self);
       RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 0.1)) //just to show the progress, the correct way is to get all this on a separate thread
 
+    let cardData = "\(info.typeStr!) card detected\n" + "Serial: \(info.uid.toHexString())\n"
+    
+    sendEvent(withName: PaymentConfig.RFIDCardDetected, body:cardData)
+
       //tvInfo.text = "\(info.typeStr!) card detected\n"
       //tvInfo.text.append("Serial: \(info.uid.toHexString())\n")
-
+      print(cardData)
       var success = true
 
       switch (info.type)
@@ -202,6 +318,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
           do {
               let ats = try rfidScanner.iso14GetATS(cardIndex)
              // tvInfo.text.append("ATS Data: \(ats.toHexString())\n")
+            print(ats.toHexString())
           } catch {
              // tvInfo.text.append("Get ATS failed: \(error.localizedDescription)\n")
               success = false

@@ -12,6 +12,10 @@
 
 @interface RCT_EXTERN_REMAP_MODULE(RNQPCRfidController,QPCRFID, RCTEventEmitter)
 
+RCT_EXTERN_METHOD(initalizeRFID)
+RCT_EXTERN_METHOD(connectRFID)
+RCT_EXTERN_METHOD(scanRFID)
+
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNQPCPaymentController,QPCConfig, RCTEventEmitter)

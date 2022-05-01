@@ -92,4 +92,9 @@ public class PaymentConfig: NSObject {
   public static let magneticCardEncryptedData:String = "magneticCardEncryptedData"
   public static let magneticCardData:String = "magneticCardData"
   
+  public static let RFIDMessage:String = "Put RFID Card in the field"
+  public static let RFIDError:String = "RFID Error: "
+  public static let RFIDCardDetected:String = "RFIDCardDetected"
+
+  
 }
