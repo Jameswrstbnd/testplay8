@@ -2,7 +2,7 @@
 //  QPCRFID.swift
 //  nativeTemplate
 //
-//  Created by Adnan Ahmad on 4/30/22.
+//  Created by Navon Hobby on 4/30/22.
 //  Copyright © 2022 Facebook. All rights reserved.
 //
 
@@ -292,6 +292,9 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
 
   //rf delegates
   func rfCardRemoved(_ cardIndex: Int32) {
+    
+    print("\nCard removed")
+
      // tvInfo.text.append("\nCard removed")
      // tvInfo.backgroundColor=UIColor.init(red: 0, green: 0, blue: 1, alpha: 0.3)
   }
