@@ -282,10 +282,11 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
           let r = try rfidScanner.iso14Transceive(cardIndex, data: data.getNSData(), status: &status)
 
           let statusStr = dfStatus2String(status: status)
-          //tvInfo.text.append("\(description) succeeded with status \(statusStr)(\(status)) and response: \(r.toHexString())\n")
+        print("\(description) succeeded with status \(statusStr)(\(status)) and response: \(r.toHexString())\n")
           return true
       } catch {
           //tvInfo.text.append("\(description) failed: \(error.localizedDescription)\n")
+        print("\(description) failed: \(error.localizedDescription)\n")
       }
       return false
   }
