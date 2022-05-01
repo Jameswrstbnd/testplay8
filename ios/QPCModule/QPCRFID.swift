@@ -39,7 +39,17 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     rfidScanner.addDelegate(self)
     rfidScanner.connect()
   }
-   
+  
+  @objc(removeRFID)
+  func removeRFID()-> Void{
+    
+    rfidScanner.removeDelegate(self)
+    do {
+        try rfidScanner.rfClose()
+    } catch {
+    }
+  }
+  
   @objc(scanRFID)
   func scanRFID() -> Void{
       
@@ -47,7 +57,6 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
         try rfidScanner.rfInit(CARD_SUPPORT_PICOPASS_ISO15|CARD_SUPPORT_TYPE_A|CARD_SUPPORT_TYPE_B|CARD_SUPPORT_ISO15|CARD_SUPPORT_FELICA)
         //tvInfo.text="Put RF card in the field..."
       sendEvent(withName: PaymentConfig.RFIDMessage, body:PaymentConfig.RFIDMessage)
-
       //RFIDMessage
         
     } catch {
