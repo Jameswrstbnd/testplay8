@@ -34,6 +34,8 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
   
   @objc(connectRFID)
   func connectRFID() -> Void{
+    
+    print("connect RFID called")
     rfidScanner.addDelegate(self)
     rfidScanner.connect()
   }
