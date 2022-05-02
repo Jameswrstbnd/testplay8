@@ -12,7 +12,7 @@
 
 @interface RCT_EXTERN_REMAP_MODULE(RNQPCRfidController,QPCRFID, RCTEventEmitter)
 
-RCT_EXTERN_METHOD(initalizeRFID)
+RCT_EXTERN_METHOD(initalizeRFID:(NSString *)developerKey)
 RCT_EXTERN_METHOD(connectRFID)
 RCT_EXTERN_METHOD(scanRFID)
 RCT_EXTERN_METHOD(removeRFID)
@@ -29,7 +29,7 @@ RCT_EXTERN_METHOD(removeRFID)
 /// 4. Create Transaction with the Invoice created
 /// 5. Start Transaction
 
-RCT_EXTERN_METHOD(initializeQPCDevice)
+RCT_EXTERN_METHOD(initializeQPCDevice:(NSString *)developerKey:(NSString * )hostKey:(NSString *)tenantKey)
 RCT_EXTERN_METHOD(printReceipt)
 RCT_EXTERN_METHOD(onClickStartEngine)
 RCT_EXTERN_METHOD(onClickConnect)

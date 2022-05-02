@@ -31,8 +31,8 @@
     }
     
    
-    @objc(initializeQPCDevice)
-    func initializeQPCDevice() -> Void {
+    @objc
+    func initializeQPCDevice(_ developerKey:String, _ hostKey:String, _ tenantKey:String) -> Void {
       
       // Do any additional setup after loading the view.
       
@@ -57,7 +57,7 @@
       
       DispatchQueue.main.async {
         // Initialize QuantumPay
-        InfinitePeripherals.initialize(developerKey: PaymentConfig.developerKey, tenant: Tenant(hostKey: PaymentConfig.hostKey, tenantKey: PaymentConfig.tenantKey))
+        InfinitePeripherals.initialize(developerKey: developerKey, tenant: Tenant(hostKey: hostKey, tenantKey: tenantKey))
         
           // Initialize payment device
         self.paymentDevice = QPC250()

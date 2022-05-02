@@ -26,10 +26,10 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     }
   
   
-  @objc(initalizeRFID)
-  func initalizeRFID()-> Void{
+  @objc
+  func initalizeRFID(_ developerKey:String)-> Void{
     let ipciq = IPCIQ.register()
-    try? ipciq?.setDeveloperKey(PaymentConfig.developerKey)
+    try? ipciq?.setDeveloperKey(developerKey)
   }
   
   @objc(connectRFID)
