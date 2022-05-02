@@ -309,6 +309,13 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     //  Progress.show(self);
       RunLoop.current.run(until: Date.init(timeIntervalSinceNow: 0.1)) //just to show the progress, the correct way is to get all this on a separate thread
 
+    do {
+        let sound: [Int32] = [2730,150,0,30,2730,150];
+        try rfidScanner.playSound(100, beepData: sound, length: Int32(sound.count*4))
+    } catch {
+      print("Error in beep")
+    }
+    
     let cardData = "\(info.typeStr!) card detected\n" + "Serial: \(info.uid.toHexString())\n"
     
     sendEvent(withName: PaymentConfig.RFIDCardDetected, body:cardData)
@@ -330,6 +337,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
             print(ats.toHexString())
           } catch {
              // tvInfo.text.append("Get ATS failed: \(error.localizedDescription)\n")
+              print("Get ATS failed: \(error.localizedDescription)\n")
               success = false
           }
 
