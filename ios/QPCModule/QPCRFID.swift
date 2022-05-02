@@ -55,12 +55,10 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
       
     do {
         try rfidScanner.rfInit(CARD_SUPPORT_PICOPASS_ISO15|CARD_SUPPORT_TYPE_A|CARD_SUPPORT_TYPE_B|CARD_SUPPORT_ISO15|CARD_SUPPORT_FELICA)
-        //tvInfo.text="Put RF card in the field..."
       sendEvent(withName: PaymentConfig.RFIDMessage, body:PaymentConfig.RFIDMessage)
       //RFIDMessage
         
     } catch {
-        //self.showError("RF Module init failed", error: error as NSError?)
       sendEvent(withName: PaymentConfig.RFIDError, body:error.localizedDescription)
 
     }
@@ -74,18 +72,17 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
       if state==CONN_STATES.CONNECTED.rawValue
       {
           if rfidScanner.getSupportedFeature(FEATURES.FEAT_PRINTING, error: nil) != FEAT_UNSUPPORTED {
-             // tabs.append(getViewController(name: "Print"))
+
           }
           if rfidScanner.getSupportedFeature(FEATURES.FEAT_MSR, error: nil) != FEAT_UNSUPPORTED || rfidScanner.getSupportedFeature(FEATURES.FEAT_PIN_ENTRY, error: nil)
               == FEAT_UNSUPPORTED {
-              //tabs.append(getViewController(name: "Crypto"))
           }
           if rfidScanner.getSupportedFeature(FEATURES.FEAT_EMVL2_KERNEL, error: nil) != FEAT_UNSUPPORTED {
               //tabs.append(getViewController(name: "EMV"))
              // tabs.append(getViewController(name: "EMVMS"))
           }
           if rfidScanner.getSupportedFeature(FEATURES.FEAT_RF_READER, error: nil) != FEAT_UNSUPPORTED {
-             // tabs.append(getViewController(name: "RF"))
+
           }
 
           do {
@@ -293,7 +290,6 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
         print("\(description) succeeded with status \(statusStr)(\(status)) and response: \(r.toHexString())\n")
           return true
       } catch {
-          //tvInfo.text.append("\(description) failed: \(error.localizedDescription)\n")
         print("\(description) failed: \(error.localizedDescription)\n")
       }
       return false
@@ -304,9 +300,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     
     print("\nCard removed")
 
-     // tvInfo.text.append("\nCard removed")
-     // tvInfo.backgroundColor=UIColor.init(red: 0, green: 0, blue: 1, alpha: 0.3)
-  }
+    }
 
   func rfCardDetected(_ cardIndex: Int32, info: DTRFCardInfo!) {
 
@@ -317,10 +311,9 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     
     sendEvent(withName: PaymentConfig.RFIDCardDetected, body:cardData)
 
-      //tvInfo.text = "\(info.typeStr!) card detected\n"
-      //tvInfo.text.append("Serial: \(info.uid.toHexString())\n")
-      print(cardData)
-      var success = true
+    print(cardData)
+      
+    var success = true
 
       switch (info.type)
       {
@@ -361,17 +354,16 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
               try mifareSafeWrite(cardIndex: cardIndex, address: 8, data: dataToWrite, key: nil)
              // tvInfo.text.append("Mifare write complete!\n")
           } catch {
-             // tvInfo.text.append("Mifare write failed: \(error.localizedDescription)\n")
+            
+              print("Mifare write failed: \(error.localizedDescription)\n")
               success = false
           }
-
           do {
               let block = try mifareSafeRead(cardIndex: cardIndex, address: 8, length: 4*16, key: nil)
               print("Mifare read complete: \(block.toHexString())\n")
               //tvInfo.text.append("Mifare read complete: \(block.toHexString())\n")
           } catch {
                 print("Mifare read failed: \(error.localizedDescription)\n")
-              //tvInfo.text.append("Mifare read failed: \(error.localizedDescription)\n")
               success = false
           }
           break
@@ -383,22 +375,18 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
           do {
               let block = try rfidScanner.mfRead(cardIndex, address: 8, length: 16)
             print("Mifare read complete: \(block.toHexString())\n")
-             // tvInfo.text.append("Mifare read complete: \(block.toHexString())\n")
           } catch {
             print("Mifare read failed: \(error.localizedDescription)\n")
 
-             // tvInfo.text.append("Mifare read failed: \(error.localizedDescription)\n")
               success = false
           }
 
           do {
               try rfidScanner.mfUlcAuth(byKey: cardIndex, key: "BREAKMEIFYOUCAN!".data(using: .ascii))
             print("Mifare authenticate complete\n")
-             // tvInfo.text.append("Mifare authenticate complete\n")
           } catch {
             
             print("Mifare authenticate failed: \(error.localizedDescription)\n")
-              //tvInfo.text.append("Mifare authenticate failed: \(error.localizedDescription)\n")
               success = false
           }
           /*
@@ -421,11 +409,9 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
               let block = try rfidScanner.mfRead(cardIndex, address: 8, length: 16)
               print("Mifare read complete: \(block.toHexString())\n")
 
-             // tvInfo.text.append("Mifare read complete: \(block.toHexString())\n")
           } catch {
             
             print("Mifare read failed: \(error.localizedDescription)\n")
-             // tvInfo.text.append("Mifare read failed: \(error.localizedDescription)\n")
               success = false
           }
 
@@ -434,11 +420,9 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
               try rfidScanner.mfWrite(cardIndex, address: 0x2C, data: "12345678abcdefgh!".data(using: .ascii), bytesWritten: nil)
             print("Mifare write complete\n")
 
-             // tvInfo.text.append("Mifare write complete\n")
           } catch {
+            
             print("Mifare write failed: \(error.localizedDescription)\n")
-
-             // tvInfo.text.append("Mifare write failed: \(error.localizedDescription)\n")
               success = false
           }
           break;
@@ -452,11 +436,8 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
               let security = try rfidScanner.iso15693GetBlocksSecurityStatus(cardIndex, startBlock: 0, nBlocks: 16)
             print("Security status: \(security.toHexString())\n")
 
-              //tvInfo.text.append("Security status: \(security.toHexString())\n")
           } catch {
-            print("Security status failed: \(error.localizedDescription)\n")
-
-              //tvInfo.text.append("Security status failed: \(error.localizedDescription)\n")
+              print("Security status failed: \(error.localizedDescription)\n")
               success = false
           }
 
@@ -467,9 +448,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
             
               print("Write complete\n")
 
-              //tvInfo.text.append("Write complete\n")
           } catch {
-              //tvInfo.text.append("Write failed: \(error.localizedDescription)\n")
             print("Write failed: \(error.localizedDescription)\n")
 
               success = false
@@ -480,11 +459,8 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
               let block = try rfidScanner.iso15693Read(cardIndex, startBlock: 0, length: 2*info.blockSize)
             print("Read complete: \(block.toHexString())\n")
 
-             // tvInfo.text.append("Read complete: \(block.toHexString())\n")
           } catch {
-            print("Read failed: \(error.localizedDescription)\n")
-
-              //tvInfo.text.append("Read failed: \(error.localizedDescription)\n")
+              print("Read failed: \(error.localizedDescription)\n")
               success = false
           }
           break;
@@ -498,11 +474,9 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
               let cmdResponse = try rfidScanner.felicaSendCommand(cardIndex, command: 0x06, data: readCmd.getNSData())
             print("Custom command: \(cmdResponse.toHexString())\n")
 
-             // tvInfo.text.append("Custom command: \(cmdResponse.toHexString())\n")
           } catch {
-             // tvInfo.text.append("Custom command failed: \(error.localizedDescription)\n")
-            print("Custom command failed: \(error.localizedDescription)\n")
 
+              print("Custom command failed: \(error.localizedDescription)\n")
               success = false
           }
 
@@ -531,12 +505,10 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
 
                 print("SmartTag battery: \(batteryString)\n")
 
-                  //tvInfo.text.append("SmartTag battery: \(batteryString)\n")
               } catch {
                 
                 print("SmartTag battery failed: \(error.localizedDescription)\n")
 
-                  //tvInfo.text.append("SmartTag battery failed: \(error.localizedDescription)\n")
                   success = false
               }
 
@@ -551,9 +523,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
                 
                 print("Write complete\n")
 
-                  //tvInfo.text.append("Write complete\n")
               } catch {
-                  //tvInfo.text.append("Write failed: \(error.localizedDescription)\n")
                 print("Write failed: \(error.localizedDescription)\n")
                   success = false
               }
@@ -561,14 +531,12 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
               //read 1 block
               do {
                   let block = try rfidScanner.felicaRead(cardIndex, serviceCode: 0x0900, startBlock: 0, length: info.blockSize)
-                  //tvInfo.text.append("Read complete: \(block.toHexString())\n")
                 print("Read complete: \(block.toHexString())\n")
 
               } catch {
                 
                 print("Read failed: \(error.localizedDescription)\n")
 
-                  //tvInfo.text.append("Read failed: \(error.localizedDescription)\n")
                   success = false
               }
           }
@@ -581,9 +549,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
 
       if success {
         
-          //tvInfo.backgroundColor=UIColor.init(red: 0, green: 0, blue: 1, alpha: 0.3)
       } else {
-          //tvInfo.backgroundColor=UIColor.init(red: 0, green: 0, blue: 1, alpha: 0.3)
       }
 
       //Progress.hide()
