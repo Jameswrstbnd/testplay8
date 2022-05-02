@@ -22,7 +22,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
   // we need to override this method and
     // return an array of event names that we can listen to
     override func supportedEvents() -> [String]! {
-      return [PaymentConfig.RFIDMessage, PaymentConfig.RFIDError, PaymentConfig.RFIDConnectionState,PaymentConfig.RFIDCardDetected]
+      return [PaymentConfig.RFIDMessage, PaymentConfig.RFIDError, PaymentConfig.RFIDConnectionState,PaymentConfig.RFIDCardDetected, PaymentConfig.RFIDCardRemoved]
     }
   
   
@@ -298,7 +298,9 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
   //rf delegates
   func rfCardRemoved(_ cardIndex: Int32) {
     
+    let cardIndexString = String(cardIndex)
     print("\nCard removed")
+    sendEvent(withName: PaymentConfig.RFIDCardRemoved, body:cardIndexString)
 
     }
 
