@@ -16,7 +16,7 @@ RCT_EXTERN_METHOD(initalizeRFID:(NSString *)developerKey)
 RCT_EXTERN_METHOD(connectRFID)
 RCT_EXTERN_METHOD(scanRFID)
 RCT_EXTERN_METHOD(removeRFID)
-RCT_EXTERN_METHOD((NSString*)getBatterStatus)
+RCT_EXTERN_METHOD(getBatterStatus)
 
 @end
 

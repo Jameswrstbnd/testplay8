@@ -32,8 +32,8 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     try? ipciq?.setDeveloperKey(developerKey)
   }
   
-  @objc
-  func getBatterStatus() -> String{
+  @objc(getBatterStatus)
+  func getBatterStatus(){
 
     //-(BOOL)getBatteryCapacity:(int *)capacity voltage:(float *)voltage error:(NSError **)error;
 
@@ -47,7 +47,9 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     }catch{
       print("Unexpected error: \(error).")
     }
-    return stringBatteryPercentage
+    
+    sendEvent(withName: PaymentConfig.BatteryStatus, body:stringBatteryPercentage)
+
   }
   @objc(connectRFID)
   func connectRFID() -> Void{

@@ -96,6 +96,8 @@ public class PaymentConfig: NSObject {
   public static let RFIDError:String = "RFID Error: "
   public static let RFIDCardDetected:String = "RFIDCardDetected"
   public static let RFIDCardRemoved:String = "RFIDCardRemoved"
+  public static let BatteryStatus:String = "BatteryStatus"
+
 
   
 }
