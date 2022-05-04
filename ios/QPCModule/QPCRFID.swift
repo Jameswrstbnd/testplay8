@@ -32,6 +32,23 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     try? ipciq?.setDeveloperKey(developerKey)
   }
   
+  @objc
+  func getBatterStatus() -> String{
+
+    //-(BOOL)getBatteryCapacity:(int *)capacity voltage:(float *)voltage error:(NSError **)error;
+
+    var capacity:Int32 = 0
+    var voltage:Float = 0.0
+    var stringBatteryPercentage:String = ""
+   
+    do {
+      try rfidScanner.getBatteryCapacity(&capacity, voltage: &voltage)
+        stringBatteryPercentage = String(capacity)
+    }catch{
+      print("Unexpected error: \(error).")
+    }
+    return stringBatteryPercentage
+  }
   @objc(connectRFID)
   func connectRFID() -> Void{
     
@@ -557,6 +574,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
           break
       }
 
+      // here you can do operation if you wanna do some specific action in case of success or failure
       if success {
         
       } else {
