@@ -337,7 +337,7 @@ class QPCRFID: RCTEventEmitter, IPCDTDeviceDelegate {
     
     let cardData = "\(info.typeStr!) card detected\n" + "Serial: \(info.uid.toHexString())\n"
     
-    sendEvent(withName: PaymentConfig.RFIDCardDetected, body:cardData)
+    sendEvent(withName: PaymentConfig.RFIDCardDetected, body:info.uid.toHexString())
 
     print(cardData)
       
