@@ -7,8 +7,8 @@
         "dev": "Playground8Dev"
     },
     "deviceTarget": {
-        "phone": true,
-        "tablet": false
+        "phone": false,
+        "tablet": true
     },
     "orientation": {
         "portrait": true,
