@@ -1,65 +1,20 @@
 {
     "configVersion": 2,
-    "appIdentifier": "com.wrstbndqpc.developerapp",
-    "appName": "QPC250React",
+    "appIdentifier": "com.playground8.mobile",
+    "appName": "Playground8",
     "bundleName": {
-        "main": "QPC250React",
-        "dev": "QPC250ReactDev"
+        "main": "Playground8",
+        "dev": "Playground8Dev"
     },
     "deviceTarget": {
         "phone": true,
-        "tablet": true
+        "tablet": false
     },
     "orientation": {
         "portrait": true,
         "landscape": true
     },
     "permissions": [
-        {
-            "title": "Camera",
-            "name": "android.permission.CAMERA",
-            "platform": "android",
-            "required": false
-        },
-        {
-            "title": "Fine Location",
-            "name": "android.permission.ACCESS_FINE_LOCATION",
-            "platform": "android",
-            "required": false
-        },
-        {
-            "title": "Coarse Location",
-            "name": "android.permission.ACCESS_COARSE_LOCATION",
-            "platform": "android",
-            "required": false
-        },
-        {
-            "title": "Background Location",
-            "name": "android.permission.ACCESS_BACKGROUND_LOCATION",
-            "platform": "android",
-            "required": false
-        },
-        {
-            "title": "Location - When In Use Usage",
-            "name": "NSLocationWhenInUseUsageDescription",
-            "purpose": "To use that feature, the app needs access to your location.",
-            "platform": "ios",
-            "required": true
-        },
-        {
-            "title": "Location - Always And When in Use Usage",
-            "name": "NSLocationAlwaysAndWhenInUseUsageDescription",
-            "purpose": "To use that feature, the app needs access to your location.",
-            "platform": "ios",
-            "required": true
-        },
-        {
-            "title": "Camera Usage",
-            "name": "NSCameraUsageDescription",
-            "purpose": "The camera can be used to open apps by scanning a QR code.",
-            "platform": "ios",
-            "required": false
-        },
         {
             "title": "Internet",
             "name": "android.permission.INTERNET",
@@ -87,6 +42,20 @@
         {
             "title": "Location - Always Usage",
             "name": "NSLocationAlwaysUsageDescription",
+            "purpose": "To use that feature, the app needs access to your location.",
+            "platform": "ios",
+            "required": true
+        },
+        {
+            "title": "Location - When In Use Usage",
+            "name": "NSLocationWhenInUseUsageDescription",
+            "purpose": "To use that feature, the app needs access to your location.",
+            "platform": "ios",
+            "required": true
+        },
+        {
+            "title": "Location - Always And When in Use Usage",
+            "name": "NSLocationAlwaysAndWhenInUseUsageDescription",
             "purpose": "To use that feature, the app needs access to your location.",
             "platform": "ios",
             "required": true
