@@ -7,11 +7,8 @@
 @implementation AppDelegate
 
 @synthesize shouldOpenInLastApp;
-@synthesize hasHandledLaunchAppWithOptions;
 
 - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  [self clearKeychain];
-  MendixAppDelegate.delegate = self;
   [MendixAppDelegate application:application didFinishLaunchingWithOptions:launchOptions];
   [self setupUI];
 
@@ -52,12 +49,21 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
   [MendixAppDelegate application:application didRegisterUserNotificationSettings:notificationSettings];
 }
 
-- (BOOL) application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  [MendixAppDelegate application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+  return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
 	return [MendixAppDelegate application:app openURL:url options:options];
 }
 
 - (WarningsFilter) getWarningFilterValue {
-  return none;
+#if DEBUG
+  return all;
+#else
+  return [AppPreferences devModeEnabled] ? partial : none;
+#endif
 }
 
 - (void) showUnrecoverableDialogWithTitle:(NSString *)title message:(NSString *) message {
@@ -73,24 +79,4 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
     [UIDatePicker appearance].preferredDatePickerStyle = UIDatePickerStyleWheels;
   }
 }
-
-- (void) userNotificationCenter:(UNUserNotificationCenter *)center
-        willPresentNotification:(UNNotification *)notification
-          withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
-  [MendixAppDelegate userNotificationCenter:center willPresentNotification:notification withCompletionHandler:completionHandler];
-}
-
-- (void) userNotificationCenter:(UNUserNotificationCenter *)center
-    didReceiveNotificationResponse:(UNNotificationResponse *)response
-             withCompletionHandler:(void (^)(void))completionHandler {
-  [MendixAppDelegate userNotificationCenter:center didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
-}
-
-- (void) clearKeychain {
-  if ([NSUserDefaults.standardUserDefaults boolForKey:@"HAS_RUN_BEFORE"] == NO) {
-    [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"HAS_RUN_BEFORE"];
-    [ReactNative clearKeychain];
-  }
-}
-
 @end

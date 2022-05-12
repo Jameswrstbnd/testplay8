@@ -18,16 +18,13 @@
   NSURL *bundleUrl;
   NSString *codePushKey;
   NSDictionary *launchOptions;
-  BOOL mendixOTAEnabled;
 }
 
 @property(nonatomic, weak) id<ReactNativeDelegate> delegate;
 @property(class, nonatomic, readonly) ReactNative *instance;
 
-+ (void) clearKeychain;
 + (NSString *) warningsFilterToString:(WarningsFilter)warningsFilter;
 - (void) setup:(MendixApp *)mendixApp launchOptions:(NSDictionary *)launchOptions;
-- (void) setup:(MendixApp *)mendixApp launchOptions:(NSDictionary *)launchOptions mendixOTAEnabled:(BOOL)mendixOTAEnabled;
 - (void) start;
 - (BOOL) isActive;
 - (NSURL *) getJSBundleFile;
@@ -39,7 +36,6 @@
 - (RCTBridge *) getBridge;
 - (UIView * _Nullable) getRootView;
 - (void) clearData;
-- (void) clearAsyncStorage;
 - (void) clearCookies;
 - (void) stop;
 - (void) reload;

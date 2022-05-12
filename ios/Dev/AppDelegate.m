@@ -7,21 +7,31 @@
 @implementation AppDelegate
 
 @synthesize shouldOpenInLastApp;
-@synthesize hasHandledLaunchAppWithOptions;
 
 - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  [self clearKeychain];
-  MendixAppDelegate.delegate = self;
   [MendixAppDelegate application:application didFinishLaunchingWithOptions:launchOptions];
   [self setupUI];
 
   IQKeyboardManager.sharedManager.enable = NO;
-  self.window = [[MendixReactWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LaunchApp" bundle:nil];
-  self.window.rootViewController = [storyboard instantiateInitialViewController];
-  [self.window makeKeyAndVisible];
-  [self.window setUserInteractionEnabled:YES];
-  
+  return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+	BOOL handled = [MendixAppDelegate application:app openURL:url options:options];
+	
+	NSString *runtimeUrl = [AppPreferences getAppUrl];
+	if ([ReactNative.instance isActive] || !handled || runtimeUrl == nil ) {
+		return handled;
+  }
+	
+  NSURL *bundleUrl = [AppUrl forBundle:runtimeUrl port:[AppPreferences getRemoteDebuggingPackagerPort] isDebuggingRemotely:[AppPreferences remoteDebuggingEnabled] isDevModeEnabled:[AppPreferences devModeEnabled]];
+  NSURL *runtimeUrlFormatted = [AppUrl forRuntime:runtimeUrl];
+  NSMutableDictionary *launchOptions = [options mutableCopy];
+	[launchOptions setValue:[options valueForKey:UIApplicationOpenURLOptionsAnnotationKey] forKey:UIApplicationOpenURLOptionsAnnotationKey];
+	[launchOptions setValue:url forKey:UIApplicationLaunchOptionsURLKey];
+  MendixApp *mendixApp = [[MendixApp alloc] init:nil bundleUrl:bundleUrl runtimeUrl:runtimeUrlFormatted warningsFilter:[self getWarningFilterValue] isDeveloperApp:YES clearDataAtLaunch:NO];
+  [ReactNative.instance setup:mendixApp launchOptions:launchOptions];
+  [ReactNative.instance start];
   return YES;
 }
 
@@ -38,26 +48,9 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
   [MendixAppDelegate application:application didRegisterUserNotificationSettings:notificationSettings];
 }
 
-- (BOOL) application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-	BOOL isHandled = [MendixAppDelegate application:application openURL:url options:options];
-
-  NSString *appUrl = [AppPreferences getAppUrl];
-  if (!isHandled || appUrl == nil || [appUrl length] == 0 || [ReactNative.instance isActive]) {
-    return NO;
-  }
-
-  NSURL *bundleUrl = [AppUrl forBundle:appUrl port:[AppPreferences getRemoteDebuggingPackagerPort] isDebuggingRemotely:[AppPreferences remoteDebuggingEnabled] isDevModeEnabled:[AppPreferences devModeEnabled]];
-  NSURL *runtimeUrl = [AppUrl forRuntime:appUrl];
-  NSMutableDictionary *launchOptions = [options mutableCopy];
-	[launchOptions setValue:[options valueForKey:UIApplicationOpenURLOptionsAnnotationKey] forKey:UIApplicationOpenURLOptionsAnnotationKey];
-	[launchOptions setValue:url forKey:UIApplicationLaunchOptionsURLKey];
-  MendixApp *mendixApp = [[MendixApp alloc] init:nil bundleUrl:bundleUrl runtimeUrl:runtimeUrl warningsFilter:[self getWarningFilterValue] isDeveloperApp:YES clearDataAtLaunch:NO];
-  [ReactNative.instance setup:mendixApp launchOptions:launchOptions];
-  dispatch_after(2.0, dispatch_get_main_queue(), ^(void){
-  	[ReactNative.instance start];
-  });
-
-  return isHandled;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  [MendixAppDelegate application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+  return YES;
 }
 
 - (WarningsFilter) getWarningFilterValue {
@@ -81,24 +74,4 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
     [UIDatePicker appearance].preferredDatePickerStyle = UIDatePickerStyleWheels;
   }
 }
-
-- (void) userNotificationCenter:(UNUserNotificationCenter *)center
-        willPresentNotification:(UNNotification *)notification
-          withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
-  [MendixAppDelegate userNotificationCenter:center willPresentNotification:notification withCompletionHandler:completionHandler];
-}
-
-- (void) userNotificationCenter:(UNUserNotificationCenter *)center
-    didReceiveNotificationResponse:(UNNotificationResponse *)response
-             withCompletionHandler:(void (^)(void))completionHandler {
-  [MendixAppDelegate userNotificationCenter:center didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
-}
-
-- (void) clearKeychain {
-  if ([NSUserDefaults.standardUserDefaults boolForKey:@"HAS_RUN_BEFORE"] == NO) {
-    [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"HAS_RUN_BEFORE"];
-    [ReactNative clearKeychain];
-  }
-}
-
 @end

@@ -11,56 +11,91 @@
             }
         }
     },
+    "pushNotifications": {
+        "android": {
+            "externalDependencies": [
+                "com.google.firebase:firebase-messaging:20.1.6",
+                "me.leolin:ShortcutBadger:1.1.22@aar"
+            ],
+            "packageListEntries": {
+                "imports": [
+                    "import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;",
+                    "import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;"
+                ],
+                "packageClassInstances": [
+                    "new RNFirebaseMessagingPackage()",
+                    "new RNFirebaseNotificationsPackage()"
+                ]
+            }
+        },
+        "ios": {
+            "AppDelegate": {
+                "imports": [
+                    "#import \"RNFirebase/RNFirebaseNotifications.h\"",
+                    "#import \"RNFirebase/RNFirebaseMessaging.h\""
+                ],
+                "didFinishLaunchingWithOptions": [
+                    "[RNFirebaseNotifications configure];"
+                ],
+                "didReceiveLocalNotification": [
+                    "[[RNFirebaseNotifications instance] didReceiveLocalNotification:notification];"
+                ],
+                "didReceiveRemoteNotification": [
+                    "[[RNFirebaseNotifications instance] didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];"
+                ],
+                "didRegisterUserNotificationSettings": [
+                    "[[RNFirebaseMessaging instance] didRegisterUserNotificationSettings:notificationSettings];"
+                ]
+            },
+            "pods": {
+                "Firebase/Messaging": {
+                    "version": "~> 6"
+                }
+            }
+        }
+    },
     "crashlytics": {
         "android": {
             "gradle": {
                 "classpaths": [
-                    "com.google.firebase:firebase-crashlytics-gradle:2.2.0"
+                    "com.google.firebase:firebase-crashlytics-gradle:2.0.0"
                 ],
                 "plugins": [
                     "com.google.firebase.crashlytics"
                 ]
             },
             "externalDependencies": [
-                "com.google.firebase:firebase-analytics"
+                "com.google.firebase:firebase-crashlytics:17.4.0",
+                "com.google.firebase:firebase-analytics:17.4.0"
             ]
         },
         "ios": {
             "pods": {
-                "Firebase/Analytics": {}
-            }
-        }
-    },
-    "localNotifications": {
-        "android": {
-            "externalDependencies": [
-                "me.leolin:ShortcutBadger:1.1.22@aar"
+                "Firebase/Crashlytics": {
+                    "version": "~> 6"
+                },
+                "Firebase/Core": {
+                    "version": "~> 6"
+                }
+            },
+            "buildPhases": [
+                {
+                    "name": "[RNFB] Crashlytics Configuration",
+                    "path": "./ios/crashlytics-config.sh",
+                    "execution_position": "after_compile",
+                    "input_files": [
+                        "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+                        "$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)"
+                    ]
+                }
             ]
-        },
-        "ios": {
-            "AppDelegate": {
-                "imports": [
-                    "#import <RNCPushNotificationIOS.h>"
-                ],
-                "didFinishLaunchingWithOptions": [
-                    "UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];",
-                    "center.delegate = MendixAppDelegate.delegate;"
-                ],
-                "willPresentNotification": [
-                    "completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionBadge);"
-                ],
-                "didReceiveNotificationResponse": [
-                    "[RNCPushNotificationIOS didReceiveNotificationResponse:response];",
-                    "completionHandler();"
-                ]
-            }
         }
     },
     "firebaseAndroid": {
         "android": {
             "gradle": {
                 "classpaths": [
-                    "com.google.gms:google-services:4.3.3"
+                    "com.google.gms:google-services:4.2.0"
                 ],
                 "plugins": [
                     "com.google.gms.google-services"
@@ -77,6 +112,26 @@
                 "didFinishLaunchingWithOptions": [
                     "[FIRApp configure];"
                 ]
+            },
+            "pods": {
+                "RNFirebase": {
+                    "path": "react-native-firebase/ios"
+                },
+                "Firebase/Core": {
+                    "version": "~> 6.19.0"
+                },
+                "GoogleUtilities": {
+                    "version": "~> 6.5.1"
+                }
+            }
+        }
+    },
+    "bluetooth": {
+        "ios": {
+            "pods": {
+                "react-native-ble-plx-swift": {
+                    "path": "react-native-ble-plx"
+                }
             }
         }
     },

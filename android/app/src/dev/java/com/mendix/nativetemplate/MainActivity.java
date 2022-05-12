@@ -43,8 +43,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
-    static private final int CAMERA_REQUEST = 1;
-    private final Executor httpExecutor = Executors.newSingleThreadExecutor();
+    static private int CAMERA_REQUEST = 1;
+    private Executor httpExecutor = Executors.newSingleThreadExecutor();
     private ZXingScannerView cameraView;
     private AppPreferences appPreferences;
     private Button launchAppButton;
@@ -78,19 +78,15 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         cameraView.setResultHandler(this);
         startCameraWithPermissions();
 
-        handleLaunchWithData(getIntent());
+        if (getIntent().getData() != null && getIntent().getAction() != null) {
+            this.launchApp(appPreferences.getAppUrl(), getIntent());
+        }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        handleLaunchWithData(intent);
-    }
-
-    private void handleLaunchWithData(Intent intent) {
-        if (intent.getData() != null) {
-            launchApp(appPreferences.getAppUrl(), intent);
-        }
+        this.launchApp(appPreferences.getAppUrl(), intent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -200,20 +196,23 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                 disableUIInteraction(false);
                 return;
             }
+
             boolean clearData = clearDataCheckBox.isChecked();
-            boolean devModeEnabled = devModeCheckBox.isChecked();
-            String runtimeUrl = AppUrl.forRuntime(url);
-
-            appPreferences.setAppUrl(AppUrl.forRuntime(runtimeUrl));
-
             Intent intent = new Intent(this, MendixReactActivity.class);
+            boolean devModeEnabled = devModeCheckBox.isChecked();
             MxConfiguration.WarningsFilter warningsFilter = devModeEnabled ? MxConfiguration.WarningsFilter.partial : MxConfiguration.WarningsFilter.none;
-            MendixApp mendixApp = new MendixApp(runtimeUrl, warningsFilter, devModeEnabled, true);
+            MendixApp mendixApp = new MendixApp(AppUrl.forRuntime(url), warningsFilter, devModeEnabled);
             intent.putExtra(MendixReactActivity.MENDIX_APP_INTENT_KEY, mendixApp);
             intent.putExtra(MendixReactActivity.CLEAR_DATA, clearData);
+
             if (passedIntent != null) {
-                intent.setData(passedIntent.getData());
-                intent.setAction(passedIntent.getAction());
+                if (passedIntent.getData() != null) {
+                    intent.setData(passedIntent.getData());
+                }
+
+                if (passedIntent.getAction() != null) {
+                    intent.setAction(passedIntent.getAction());
+                }
             }
 
             startActivity(intent);
